@@ -12,6 +12,7 @@
         StarToken,
         SlashToken,
         BangToken,
+        EqualToken,
         AmpersandAmpersandToken,
         PipePipeToken,
         EqualsEqualsToken,
@@ -26,8 +27,10 @@
 
         // Expressions
         LiteralExpression,
+        NameExpression,
         UnaryExpression,
         BinaryExpression,
-        ParenthesizedExpression
+        ParenthesizedExpression,
+        AssignmentExpression,
     }
 }
