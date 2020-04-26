@@ -19,7 +19,7 @@ namespace Minsk
                 if (string.IsNullOrWhiteSpace(line))
                     return;
 
-                if (line == "#tree")
+                if (line == "#showTree" || line == "#st")
                 {
                     showTree = !showTree;
                     Console.WriteLine(showTree ? "Showing parse trees" : "Not showing parse trees");
