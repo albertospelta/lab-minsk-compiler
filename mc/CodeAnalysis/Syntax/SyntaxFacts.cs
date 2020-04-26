@@ -9,7 +9,7 @@
                 case SyntaxKind.PlusToken:
                 case SyntaxKind.MinusToken:
                 case SyntaxKind.BangToken:
-                    return 5;
+                    return 6;
                 default:
                     return 0;
             }
@@ -21,9 +21,12 @@
             {
                 case SyntaxKind.StarToken:
                 case SyntaxKind.SlashToken:
-                    return 4;
+                    return 5;
                 case SyntaxKind.PlusToken:
                 case SyntaxKind.MinusToken:
+                    return 4;
+                case SyntaxKind.EqualsEqualsToken:
+                case SyntaxKind.BangEqualsToken:
                     return 3;
                 case SyntaxKind.AmpersandAmpersandToken:
                     return 2;
