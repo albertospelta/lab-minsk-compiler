@@ -4,9 +4,11 @@ namespace Minsk.CodeAnalysis.Syntax
 {
     internal sealed class Parser
     {
-        private List<string> _diagnostics = new List<string>();
+        private DiagnosticBag _diagnostics = new DiagnosticBag();
         private readonly SyntaxToken[] _tokens;
         private int _position;
+
+        public DiagnosticBag Diagnostics => _diagnostics;
 
         public Parser(string text)
         {
@@ -29,8 +31,6 @@ namespace Minsk.CodeAnalysis.Syntax
             _tokens = tokens.ToArray();
             _diagnostics.AddRange(lexer.Diagnostics);
         }
-
-        public IEnumerable<string> Diagnostics => _diagnostics;
 
         private SyntaxToken Peek(int offset)
         {
@@ -55,7 +55,7 @@ namespace Minsk.CodeAnalysis.Syntax
             if (Current.Kind == kind)
                 return NextToken();
 
-            _diagnostics.Add($"ERROR: unexpected token: input <{ Current.Kind }>, expected <{ kind }>");
+            _diagnostics.ReportUnexpectedToken(Current.Span, Current.Kind, kind);
             return new SyntaxToken(kind, Current.Position, null, null);
         }
 
