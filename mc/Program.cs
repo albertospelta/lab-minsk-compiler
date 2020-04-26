@@ -1,6 +1,7 @@
 ﻿using Minsk.CodeAnalysis;
 using Minsk.CodeAnalysis.Syntax;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Minsk
@@ -10,6 +11,7 @@ namespace Minsk
         private static void Main()
         {
             bool showTree = false;
+            var variables = new Dictionary<VariableSymbol, object>();
 
             while (true)
             {
@@ -33,7 +35,7 @@ namespace Minsk
 
                 var syntaxTree = SyntaxTree.Parse(line);
                 var compilation = new Compilation(syntaxTree);
-                var result = compilation.Evaluate();
+                var result = compilation.Evaluate(variables);
 
                 if (showTree)
                 {
