@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Minsk.CodeAnalysis
 {
-    class SyntaxToken : SyntaxNode
+    public class SyntaxToken : SyntaxNode
     {
         public SyntaxToken(SyntaxKind kind, int position, string text, object value)
         {

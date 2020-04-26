@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Minsk
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             bool showTree = false;
 
@@ -35,19 +35,17 @@ namespace Minsk
 
                 if (showTree)
                 {
-                    var color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Print(syntaxTree.Root);
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();
                 }
 
                 if (syntaxTree.Diagnostics.Any())
                 {
-                    var color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     foreach (var diagnostic in syntaxTree.Diagnostics)
                         Console.WriteLine(diagnostic);
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -55,25 +53,6 @@ namespace Minsk
                     var result = evaluator.Evaluate();
                     Console.WriteLine(result);
                 }
-
-                //var lexer = new Lexer(line);
-                //while (true)
-                //{
-                //    var token = lexer.NextToken();
-                //    if (token.Kind == SyntaxKind.EndOfFileToken)
-                //        break;
-
-                //    Console.Write($"{token.Kind}: '{token.Text}'");
-                //    if (token.Value != null)
-                //        Console.Write($" {token.Value}");
-
-                //    Console.WriteLine();
-                //}
-
-                //if (line == "1 + 2 * 3")
-                //    Console.WriteLine("7");
-                //else
-                //    Console.WriteLine("ERROR: Invalid expression");
             }
         }
 
@@ -93,7 +72,7 @@ namespace Minsk
 
             Console.WriteLine();
 
-            indent += isLast ? "    " : "│   ";
+            indent += isLast ? "   " : "│   ";
 
             var children = node.GetChildren();
             foreach (var child in children)
