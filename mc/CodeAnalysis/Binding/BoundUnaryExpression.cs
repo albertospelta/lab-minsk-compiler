@@ -4,16 +4,16 @@ namespace Minsk.CodeAnalysis.Binding
 {
     internal sealed class BoundUnaryExpression : BoundExpression
     {
-        public BoundUnaryExpression(BoundUnaryOperatorKind operatorKind, BoundExpression operand)
+        public BoundUnaryExpression(BoundUnaryOperator @operator, BoundExpression operand)
         {
-            OperatorKind = operatorKind;
+            Operator = @operator;
             Operand = operand;
         }
 
         public override BoundNodeKind Kind => BoundNodeKind.UnaryExpression;
         public override Type Type => Operand.Type;
 
-        public BoundUnaryOperatorKind OperatorKind { get; }
+        public BoundUnaryOperator Operator { get; }
         public BoundExpression Operand { get; }
     }
 }
