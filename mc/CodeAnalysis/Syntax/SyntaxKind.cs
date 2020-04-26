@@ -13,6 +13,11 @@
         SlashToken,
         OpenParenthesisToken,
         CloseParenthesisToken,
+        IdentifierToken,
+
+        // Keyword
+        TrueKeyword,
+        FalseKeyword,
 
         // Expressions
         LiteralExpression,

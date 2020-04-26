@@ -48,7 +48,7 @@ namespace Minsk
                 if (diagnosticts.Any())
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    foreach (var diagnostic in syntaxTree.Diagnostics)
+                    foreach (var diagnostic in diagnosticts)
                         Console.WriteLine(diagnostic);
                     Console.ResetColor();
                 }
