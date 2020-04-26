@@ -1,4 +1,6 @@
 ﻿using Minsk.CodeAnalysis;
+using Minsk.CodeAnalysis.Binding;
+using Minsk.CodeAnalysis.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,9 @@ namespace Minsk
                 }
 
                 var syntaxTree = SyntaxTree.Parse(line);
+                var binder = new Binder();
+                var boundExpression = binder.BindExpression(syntaxTree.Root);
+                var diagnosticts = syntaxTree.Diagnostics.Concat(binder.Diagnostics);
 
                 if (showTree)
                 {
@@ -40,7 +45,7 @@ namespace Minsk
                     Console.ResetColor();
                 }
 
-                if (syntaxTree.Diagnostics.Any())
+                if (diagnosticts.Any())
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     foreach (var diagnostic in syntaxTree.Diagnostics)
@@ -49,7 +54,7 @@ namespace Minsk
                 }
                 else
                 {
-                    var evaluator = new Evaluator(syntaxTree.Root);
+                    var evaluator = new Evaluator(boundExpression);
                     var result = evaluator.Evaluate();
                     Console.WriteLine(result);
                 }
