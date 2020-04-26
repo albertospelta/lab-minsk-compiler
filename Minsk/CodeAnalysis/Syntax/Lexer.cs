@@ -26,7 +26,7 @@ namespace Minsk.CodeAnalysis.Syntax
             if (index >= _text.Length)
                 return '\0';
 
-            return _text[_position];
+            return _text[index];
         }
 
         private void Next()
