@@ -77,7 +77,7 @@ namespace Minsk
 
             Console.WriteLine();
 
-            indent += isLast ? "   " : "│   ";
+            indent += isLast ? "   " : "│  ";
 
             var children = node.GetChildren();
             foreach (var child in children)
