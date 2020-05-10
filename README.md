@@ -4,23 +4,27 @@
 
 > Building a compiler
 
-  1. expression evaluator
+### 1. Expression evaluator
+  
+
     * Basic REPL (read-eval-print loop) for an expression evaluator
     * Added lexer, a parser, and an evaluator
     * Handle `+`, `-`, `*`, `/`, and parenthesized expressions
     * Print syntax trees
 
-  2. more operators and literals
+### 2. More operators and literals
+
     * Generalized parsing using precedences
     * Support unary operators, such as `+2` and `-3`
     * Support for Boolean literals (`false`, `true`)
     * Support for conditions such as `1 == 3 && 2 != 3 || true`
     * Internal representation for type checking (`Binder`, and `BoundNode`)
 
-  3. assignments and variables 
+### 3. Assignments and variables 
+  
     * Extracted compiler into a separate library
     * Exposed span on diagnostics that indicate where the error occurred
     * Support for assignments and variables
 
-  4. add tests
-  [ ... ]
+### 4. Add tests
+    * [ ... ]
