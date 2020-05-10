@@ -58,7 +58,7 @@ namespace Minsk
                         Console.ResetColor();
 
                         var prefix = line.Substring(0, diagnostic.Span.Start);
-                        var error = line.Substring(diagnostic.Span.Start, diagnostic.Span.Lenght);
+                        var error = line.Substring(diagnostic.Span.Start, diagnostic.Span.Length);
                         var suffix = line.Substring(diagnostic.Span.End);
 
                         Console.Write("    ");

@@ -2,14 +2,14 @@
 {
     public struct TextSpan
     {
-        public TextSpan(int start, int lenght)
+        public TextSpan(int start, int length)
         {
             Start = start;
-            Lenght = lenght;
+            Length = length;
         }
 
         public int Start { get; }
-        public int Lenght { get; }
-        public int End => Start + Lenght;
+        public int Length { get; }
+        public int End => Start + Length;
     }
 }
