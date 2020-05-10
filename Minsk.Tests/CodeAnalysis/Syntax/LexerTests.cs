@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Minsk.Test.CodeAnalysis.Syntax
 {
-    public class LexerTest
+    public class LexerTests
     {
         [Theory]
         [MemberData(nameof(GetTokensData))]
