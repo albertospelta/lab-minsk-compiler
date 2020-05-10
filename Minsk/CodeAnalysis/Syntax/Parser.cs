@@ -65,6 +65,7 @@ namespace Minsk.CodeAnalysis.Syntax
             var endOfFileToken = MatchToken(SyntaxKind.EndOfFileToken);
             return new SyntaxTree(_diagnostics, expression, endOfFileToken);
         }
+
         private ExpressionSyntax ParseExpression()
         {
             return ParseAssgnmentExpression();
