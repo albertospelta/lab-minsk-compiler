@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -36,6 +37,41 @@ namespace Minsk.CodeAnalysis.Syntax
                         yield return child;
                 }
             }
+        }
+
+        public void WriteTo(TextWriter writer)
+        {
+            Print(writer, this);
+        }
+
+        private static void Print(TextWriter writer, SyntaxNode node, string indent = "", bool isLast = true)
+        {
+            var marker = isLast ? "└──" : "├──";
+
+            writer.Write(indent);
+            writer.Write(marker);
+            writer.Write(node.Kind);
+
+            if (node is SyntaxToken t && t.Value != null)
+            {
+                writer.Write(" ");
+                writer.Write(t.Value);
+            }
+
+            writer.WriteLine();
+
+            indent += isLast ? "   " : "│  ";
+
+            var children = node.GetChildren();
+            foreach (var child in children)
+                Print(writer, child, indent, isLast: child == children.LastOrDefault());
+        }
+
+        public override string ToString()
+        {
+            using var writer = new StringWriter();
+            WriteTo(writer);
+            return writer.ToString();
         }
     }
 }

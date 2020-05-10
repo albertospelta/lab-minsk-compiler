@@ -40,7 +40,7 @@ namespace Minsk
                 if (showTree)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Print(syntaxTree.Root);
+                    syntaxTree.Root.WriteTo(Console.Out);
                     Console.ResetColor();
                 }
 
@@ -75,29 +75,6 @@ namespace Minsk
                     Console.WriteLine();
                 }
             }
-        }
-
-        static void Print(SyntaxNode node, string indent = "", bool isLast = true)
-        {
-            var marker = isLast ? "└──" : "├──";
-
-            Console.Write(indent);
-            Console.Write(marker);
-            Console.Write(node.Kind);
-
-            if (node is SyntaxToken t && t.Value != null)
-            {
-                Console.Write(" ");
-                Console.Write(t.Value);
-            }
-
-            Console.WriteLine();
-
-            indent += isLast ? "   " : "│  ";
-
-            var children = node.GetChildren();
-            foreach (var child in children)
-                Print(child, indent, isLast: child == children.LastOrDefault());
         }
     }
 }
