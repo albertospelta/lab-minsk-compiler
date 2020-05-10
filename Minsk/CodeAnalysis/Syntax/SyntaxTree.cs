@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace Minsk.CodeAnalysis.Syntax
 {
@@ -20,6 +21,19 @@ namespace Minsk.CodeAnalysis.Syntax
         {
             var parser = new Parser(text);
             return parser.Parse();
+        }
+
+        public static IEnumerable<SyntaxToken> ParseTokens(string text)
+        {
+            var lexter = new Lexer(text);
+            while (true)
+            {
+                var token = lexter.Lex();
+                if (token.Kind == SyntaxKind.EndOfFileToken)
+                    break;
+
+                yield return token;
+            }
         }
     }
 }
