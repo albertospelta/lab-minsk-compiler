@@ -162,7 +162,7 @@ namespace Minsk.CodeAnalysis.Syntax
 
         private ExpressionSyntax ParseNameExpression()
         {
-            var identifierToken = NextToken();
+            var identifierToken = MatchToken(SyntaxKind.IdentifierToken);
             return new NameExpressionSyntax(identifierToken);
         }
     }
