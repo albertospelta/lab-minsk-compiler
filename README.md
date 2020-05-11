@@ -34,4 +34,7 @@
 
 ### 5. Line numbers and clean-up
 
-* [ ... ]
+* Code clean-up
+* Added `SourceText`, which allows to compute line number information
+
+### [ ... ]
