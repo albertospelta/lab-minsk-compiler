@@ -3,30 +3,56 @@ using Minsk.CodeAnalysis.Syntax;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 
 namespace Minsk.CodeAnalysis
 {
     public class Compilation
     {
-        public Compilation(SyntaxTree syntax)
+        private BoundGlobalScope _globalScope;
+
+        public Compilation(SyntaxTree syntaxTree)
+            : this(null, syntaxTree)
         {
-            Syntax = syntax;
+            SyntaxTree = syntaxTree;
         }
 
-        public SyntaxTree Syntax { get; }
+        private Compilation(Compilation previous, SyntaxTree syntaxTree)
+        {
+            Previous = previous;
+            SyntaxTree = syntaxTree;
+        }
+
+        public Compilation Previous { get; }
+        public SyntaxTree SyntaxTree { get; }
+
+        internal BoundGlobalScope GlobalScope
+        {
+            get
+            {
+                if (_globalScope == null)
+                {
+                    var globalScope = Binder.BoundGlobalScope(Previous?.GlobalScope, SyntaxTree.Root);
+                    Interlocked.CompareExchange(ref _globalScope, globalScope, null); // for thread safety
+                }
+
+                return _globalScope;
+            }
+        }
+
+        public Compilation ContinueWith(SyntaxTree syntaxTree)
+        {
+            return new Compilation(this, syntaxTree);
+        }
 
         public EvaluationResult Evaluate(Dictionary<VariableSymbol, object> variables)
         {
-            var binder = new Binder(variables);
-            var boundExpression = binder.BindExpression(Syntax.Root.Expression);
-
-            var diagnostics = Syntax.Diagnostics.Concat(binder.Diagnostics).ToImmutableArray();
+            var diagnostics = SyntaxTree.Diagnostics.Concat(GlobalScope.Diagnostics).ToImmutableArray();
             if (diagnostics.Any())
-                return new EvaluationResult(diagnostics, value: null);
+                return new EvaluationResult(diagnostics, null);
 
-            var evaluator = new Evaluator(boundExpression, variables);
+            var evaluator = new Evaluator(GlobalScope.Expression, variables);
             var value = evaluator.Evaluate();
-
             return new EvaluationResult(ImmutableArray<Diagnostic>.Empty, value);
         }
     }
