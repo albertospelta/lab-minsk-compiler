@@ -15,7 +15,7 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             var op1Text = SyntaxFacts.GetText(op1);
             var op2Text = SyntaxFacts.GetText(op2);
             var text = $"a { op1Text } b { op2Text } c";
-            var expression = SyntaxTree.Parse(text).Root;
+            var expression = ParseExpression(text);
 
             if (op1Precedence >= op2Precedence)
             {
@@ -68,7 +68,7 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             var unaryText = SyntaxFacts.GetText(unaryKind);
             var binaryText = SyntaxFacts.GetText(binaryKind);
             var text = $"{ unaryText } a { binaryText } b";
-            var expression = SyntaxTree.Parse(text).Root;
+            var expression = ParseExpression(text);
 
             if (unaryPrecedence >= binaryPrecedence)
             {
@@ -106,6 +106,13 @@ namespace Minsk.Test.CodeAnalysis.Syntax
                 e.AssertNode(SyntaxKind.NameExpression);
                 e.AssertToken(SyntaxKind.IdentifierToken, "b");
             }
+        }
+
+        private static ExpressionSyntax ParseExpression(string text) 
+        {
+            var syntaxTree = SyntaxTree.Parse(text);
+            var root = syntaxTree.Root;
+            return root.Expression;
         }
 
         public static IEnumerable<object[]> GetBinaryOperatorPairsData()
