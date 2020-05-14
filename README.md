@@ -37,4 +37,12 @@
 * Code clean-up
 * Added `SourceText`, which allows to compute line number information
 
+### 6. Line numbers and clean-up
+
+* Added colorization to REPL
+* Added compilation unit
+* Added chaining to compilations
+* Added statements
+* Added variable declaration statements
+
 ### [ ... ]
