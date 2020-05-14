@@ -96,7 +96,7 @@ namespace Minsk.CodeAnalysis.Syntax
             return new VariableDeclarationSyntax(keyword, identifier, equals, initializer);
         }
 
-        private StatementSyntax ParseBlockStatement()
+        private BlockStatementSyntax ParseBlockStatement()
         {
             var statements = ImmutableArray.CreateBuilder<StatementSyntax>();
 
@@ -114,7 +114,7 @@ namespace Minsk.CodeAnalysis.Syntax
             return new BlockStatementSyntax(openBraceToken, statements.ToImmutable(), closeBraceToken);
         }
 
-        private StatementSyntax ParseExpressionStatement()
+        private ExpressionStatementSyntax ParseExpressionStatement()
         {
             var expression = ParseExpression();
             return new ExpressionStatementSyntax(expression);
@@ -174,7 +174,7 @@ namespace Minsk.CodeAnalysis.Syntax
             switch (Current.Kind)
             {
                 case SyntaxKind.OpenParenthesisToken:
-                    return ParseParenthesisExpression();
+                    return ParseParenthesizedExpression();
 
                 case SyntaxKind.FalseKeyword:
                 case SyntaxKind.TrueKeyword:
@@ -189,7 +189,7 @@ namespace Minsk.CodeAnalysis.Syntax
             }
         }
 
-        private ExpressionSyntax ParseParenthesisExpression()
+        private ExpressionSyntax ParseParenthesizedExpression()
         {
             var left = MatchToken(SyntaxKind.OpenParenthesisToken);
             var expression = ParseExpression();
