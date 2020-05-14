@@ -16,7 +16,7 @@ namespace Minsk.CodeAnalysis.Binding
             _scope = new BoundScope(parent);
         }
 
-        public static BoundGlobalScope BoundGlobalScope(BoundGlobalScope previous, CompilationUnitSyntax syntax)
+        public static BoundGlobalScope BindGlobalScope(BoundGlobalScope previous, CompilationUnitSyntax syntax)
         {
             var parentScope = CreateParentScopes(previous); 
             var binder = new Binder(parentScope);
