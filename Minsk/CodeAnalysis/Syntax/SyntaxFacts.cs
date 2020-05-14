@@ -46,6 +46,8 @@ namespace Minsk.CodeAnalysis.Syntax
             {
                 "true" => SyntaxKind.TrueKeyword,
                 "false" => SyntaxKind.FalseKeyword,
+                "let" => SyntaxKind.LetKeyword,
+                "var" => SyntaxKind.VarKeyword,
                 _ => SyntaxKind.IdentifierToken,
             };
         }
@@ -79,7 +81,7 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.StarToken => "*",
                 SyntaxKind.SlashToken => "/",
                 SyntaxKind.BangToken => "!",
-                SyntaxKind.EqualToken => "=",
+                SyntaxKind.EqualsToken => "=",
                 SyntaxKind.AmpersandAmpersandToken => "&&",
                 SyntaxKind.PipePipeToken => "||",
                 SyntaxKind.EqualsEqualsToken => "==",
@@ -90,6 +92,8 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.CloseBraceToken => "}",
                 SyntaxKind.TrueKeyword => "true",
                 SyntaxKind.FalseKeyword => "false",
+                SyntaxKind.LetKeyword => "let",
+                SyntaxKind.VarKeyword => "var",
                 _ => null,
             };
         }

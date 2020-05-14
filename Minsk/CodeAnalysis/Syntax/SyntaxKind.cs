@@ -12,7 +12,7 @@
         StarToken,
         SlashToken,
         BangToken,
-        EqualToken,
+        EqualsToken,
         AmpersandAmpersandToken,
         PipePipeToken,
         EqualsEqualsToken,
@@ -26,12 +26,15 @@
         // Keyword
         TrueKeyword,
         FalseKeyword,
+        LetKeyword,
+        VarKeyword,
 
         // Nodes
         CompilationUnit,
 
         // Statements
         BlockStatement,
+        VariableDeclaration,
         ExpressionStatement,
 
         // Expressions

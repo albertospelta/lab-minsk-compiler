@@ -9,6 +9,5 @@
 
         public override BoundNodeKind Kind => BoundNodeKind.ExpressionStatement;
         public BoundExpression Expression { get; }
-
     }
 }

@@ -9,7 +9,7 @@
         }
 
         public override SyntaxKind Kind => SyntaxKind.CompilationUnit;
-        public StatementSyntax Statement { get; private set; }
-        public SyntaxToken EndOfFileToken { get; private set; }
+        public StatementSyntax Statement { get; }
+        public SyntaxToken EndOfFileToken { get; }
     }
 }

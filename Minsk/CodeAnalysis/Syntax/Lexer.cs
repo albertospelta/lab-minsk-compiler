@@ -97,7 +97,7 @@ namespace Minsk.CodeAnalysis.Syntax
                     _position++;
                     if (Current != '=')
                     {
-                        _kind = SyntaxKind.EqualToken;
+                        _kind = SyntaxKind.EqualsToken;
                     }
                     else
                     {
