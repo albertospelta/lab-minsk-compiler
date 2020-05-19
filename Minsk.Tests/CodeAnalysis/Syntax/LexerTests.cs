@@ -146,16 +146,16 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             if (type1Kind == SyntaxKind.NumberToken && type2Kind == SyntaxKind.NumberToken)
                 return true;
 
-            if (type1Kind == SyntaxKind.BangToken && type2Kind == SyntaxKind.EqualToken)
+            if (type1Kind == SyntaxKind.BangToken && type2Kind == SyntaxKind.EqualsToken)
                 return true;
 
             if (type1Kind == SyntaxKind.BangToken && type2Kind == SyntaxKind.EqualsEqualsToken)
                 return true;
 
-            if (type1Kind == SyntaxKind.EqualToken && type2Kind == SyntaxKind.EqualToken)
+            if (type1Kind == SyntaxKind.EqualsToken && type2Kind == SyntaxKind.EqualsToken)
                 return true;
 
-            if (type1Kind == SyntaxKind.EqualToken && type2Kind == SyntaxKind.EqualsEqualsToken)
+            if (type1Kind == SyntaxKind.EqualsToken && type2Kind == SyntaxKind.EqualsEqualsToken)
                 return true;
 
             return false;

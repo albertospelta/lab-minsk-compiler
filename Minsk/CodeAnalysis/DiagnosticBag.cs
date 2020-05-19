@@ -32,7 +32,7 @@ namespace Minsk.CodeAnalysis
 
         public void ReportBadCharacter(int position, char character)
         {
-            var message = $"Bad character input: '{ character }.'";
+            var message = $"Bad character input: '{ character }'";
             var span = new TextSpan(position, 1);
             Report(span, message);
         }
@@ -58,6 +58,24 @@ namespace Minsk.CodeAnalysis
         public void ReportUndefinedName(TextSpan span, string name)
         {
             var message = $"Variable '{ name }' doesn't exist.";
+            Report(span, message);
+        }
+
+        public void ReportVariableAlreadyDeclared(TextSpan span, string name)
+        {
+            var message = $"Variable '{ name }' is already declared.";
+            Report(span, message);
+        }
+
+        public void ReportCannotConvert(TextSpan span, Type fromType, Type toType)
+        {
+            var message = $"Cannot convert type '{ fromType }' to '{ toType }'.";
+            Report(span, message);
+        }
+
+        public void ReportCannotAssign(TextSpan span, string name)
+        {
+            var message = $"Variable '{ name }' is read-only and cannot be assigned to.";
             Report(span, message);
         }
     }

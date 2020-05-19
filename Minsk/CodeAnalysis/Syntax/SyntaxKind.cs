@@ -12,18 +12,30 @@
         StarToken,
         SlashToken,
         BangToken,
-        EqualToken,
+        EqualsToken,
         AmpersandAmpersandToken,
         PipePipeToken,
         EqualsEqualsToken,
         BangEqualsToken,
         OpenParenthesisToken,
         CloseParenthesisToken,
+        OpenBraceToken,
+        CloseBraceToken,
         IdentifierToken,
 
         // Keyword
         TrueKeyword,
         FalseKeyword,
+        LetKeyword,
+        VarKeyword,
+
+        // Nodes
+        CompilationUnit,
+
+        // Statements
+        BlockStatement,
+        VariableDeclaration,
+        ExpressionStatement,
 
         // Expressions
         LiteralExpression,
