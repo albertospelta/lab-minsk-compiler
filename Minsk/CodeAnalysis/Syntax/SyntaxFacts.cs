@@ -49,6 +49,8 @@ namespace Minsk.CodeAnalysis.Syntax
             return text switch
             {
                 "true" => SyntaxKind.TrueKeyword,
+                "if" => SyntaxKind.IfKeyword,
+                "else" => SyntaxKind.ElseKeyword,
                 "false" => SyntaxKind.FalseKeyword,
                 "let" => SyntaxKind.LetKeyword,
                 "var" => SyntaxKind.VarKeyword,
@@ -100,6 +102,8 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.CloseBraceToken => "}",
                 SyntaxKind.TrueKeyword => "true",
                 SyntaxKind.FalseKeyword => "false",
+                SyntaxKind.IfKeyword => "if",
+                SyntaxKind.ElseKeyword => "else",
                 SyntaxKind.LetKeyword => "let",
                 SyntaxKind.VarKeyword => "var",
                 _ => null,

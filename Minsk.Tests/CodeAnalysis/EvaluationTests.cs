@@ -22,7 +22,6 @@ namespace Minsk.Test.CodeAnalysis
         [InlineData("3 == 3", true)]
         [InlineData("12 != 3", true)]
         [InlineData("3 != 3", false)]
-
         [InlineData("3 < 4", true)]
         [InlineData("5 < 4", false)]
         [InlineData("4 <= 4", true)]
@@ -42,6 +41,11 @@ namespace Minsk.Test.CodeAnalysis
         [InlineData("!true", false)]
         [InlineData("!false", true)]
         [InlineData("{ var a = 0 (a = 10) * a }", 100)]
+        [InlineData("{ var a = 0 if a == 0 a = 10 a }", 10)]
+        [InlineData("{ var a = 0 if a == 4 a = 10 a }", 0)]
+        [InlineData("{ var a = 0 if a == 0 a = 10 else a = 5 a }", 10)]
+        [InlineData("{ var a = 0 if a == 4 a = 10 else a = 5 a }", 5)]
+
         public void SyntaxFact_GetText_RoundTrips(string text, object expectedValue)
         {
             AssertValue(text, expectedValue);

@@ -30,15 +30,19 @@
         // Keyword
         TrueKeyword,
         FalseKeyword,
+        IfKeyword,
+        ElseKeyword,
         LetKeyword,
         VarKeyword,
 
         // Nodes
         CompilationUnit,
+        ElseClause,
 
         // Statements
         BlockStatement,
         VariableDeclaration,
+        IfStatement,
         ExpressionStatement,
 
         // Expressions
