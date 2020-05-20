@@ -158,6 +158,18 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             if (type1Kind == SyntaxKind.EqualsToken && type2Kind == SyntaxKind.EqualsEqualsToken)
                 return true;
 
+            if (type1Kind == SyntaxKind.LessToken && type2Kind == SyntaxKind.EqualsToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.LessToken && type2Kind == SyntaxKind.EqualsEqualsToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.GreatToken && type2Kind == SyntaxKind.EqualsToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.GreatToken && type2Kind == SyntaxKind.EqualsEqualsToken)
+                return true;
+
             return false;
         }
 
@@ -172,6 +184,7 @@ namespace Minsk.Test.CodeAnalysis.Syntax
                 }
             }
         }
+
         public static IEnumerable<(SyntaxKind type1Kind, string type1Text, SyntaxKind separetorKind, string separatorText, SyntaxKind type2Kind, string type2Text)> GetTokenPairsWithSeparator()
         {
             foreach (var type1 in GetTokens())
