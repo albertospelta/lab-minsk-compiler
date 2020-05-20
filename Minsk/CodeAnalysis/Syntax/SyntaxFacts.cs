@@ -54,6 +54,7 @@ namespace Minsk.CodeAnalysis.Syntax
                 "false" => SyntaxKind.FalseKeyword,
                 "let" => SyntaxKind.LetKeyword,
                 "var" => SyntaxKind.VarKeyword,
+                "while" => SyntaxKind.WhileKeyword,
                 _ => SyntaxKind.IdentifierToken,
             };
         }
@@ -106,6 +107,7 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.ElseKeyword => "else",
                 SyntaxKind.LetKeyword => "let",
                 SyntaxKind.VarKeyword => "var",
+                SyntaxKind.WhileKeyword => "while",
                 _ => null,
             };
         }
