@@ -46,6 +46,7 @@ namespace Minsk.Test.CodeAnalysis
         [InlineData("{ var a = 0 if a == 0 a = 10 else a = 5 a }", 10)]
         [InlineData("{ var a = 0 if a == 4 a = 10 else a = 5 a }", 5)]
         [InlineData("{ var i = 10 var result = 0 while i > 0 { result = result + i i = i - 1 } result }", 55)]
+        [InlineData("{ var result = 0 for i = 1 to 10 { result = result + i } result }", 55)]
         public void Evaluator_Compute_CorrectValues(string text, object expectedValue)
         {
             AssertValue(text, expectedValue);
@@ -161,6 +162,42 @@ namespace Minsk.Test.CodeAnalysis
 
             var diagnostics = @"
                 Cannot convert type 'System.Int32' to 'System.Boolean'.
+            ";
+
+            AssertHasDiagnostics(text, diagnostics);
+        }
+
+        [Fact]
+        public void Evaluator_ForStatements_Reports_CannotConvert_LowerBound()
+        {
+            var text = @"
+                {
+                    var result = 0
+                    for i = [false] to 10
+                        result = result + i
+                }
+            ";
+
+            var diagnostics = @"
+                Cannot convert type 'System.Boolean' to 'System.Int32'.
+            ";
+
+            AssertHasDiagnostics(text, diagnostics);
+        }
+
+        [Fact]
+        public void Evaluator_ForStatements_Reports_CannotConvert_UpperBound()
+        {
+            var text = @"
+                {
+                    var result = 0
+                    for i = 1 to [true]
+                        result = result + i
+                }
+            ";
+
+            var diagnostics = @"
+                Cannot convert type 'System.Boolean' to 'System.Int32'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
