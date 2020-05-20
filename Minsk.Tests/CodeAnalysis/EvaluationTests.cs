@@ -74,7 +74,7 @@ namespace Minsk.Test.CodeAnalysis
         }
 
         [Fact]
-        public void Evaluator_Name_Reports_Undefined()
+        public void Evaluator_NameExpression_Reports_Undefined()
         {
             var text = @"[x] * 10";
 
@@ -86,7 +86,31 @@ namespace Minsk.Test.CodeAnalysis
         }
 
         [Fact]
-        public void Evaluator_Assigned_Reports_Undefined()
+        public void Evaluator_UnaryExpression_Reports_Undefined()
+        {
+            var text = @"[+]true";
+
+            var diagnostics = @"
+                Unary operator '+' is not defined for type 'System.Boolean'.
+            ";
+
+            AssertHasDiagnostics(text, diagnostics);
+        }
+
+        [Fact]
+        public void Evaluator_BinaryExpression_Reports_Undefined()
+        {
+            var text = @"10 [*] false";
+
+            var diagnostics = @"
+                Binary operator '*' is not defined for types 'System.Int32' and 'System.Boolean'.
+            ";
+
+            AssertHasDiagnostics(text, diagnostics);
+        }
+
+        [Fact]
+        public void Evaluator_AssignmentExpression_Reports_Undefined()
         {
             var text = @"[x] = 10";
 
@@ -98,7 +122,7 @@ namespace Minsk.Test.CodeAnalysis
         }
 
         [Fact]
-        public void Evaluator_Assigned_Reports_CannotAssign()
+        public void Evaluator_AssignmentExpression_Reports_CannotAssign()
         {
             var text = @"
                 {
@@ -115,7 +139,7 @@ namespace Minsk.Test.CodeAnalysis
         }
 
         [Fact]
-        public void Evaluator_Assigned_Reports_CannotConvert()
+        public void Evaluator_AssignmentExpression_Reports_CannotConvert()
         {
             var text = @"
                 {
@@ -198,30 +222,6 @@ namespace Minsk.Test.CodeAnalysis
 
             var diagnostics = @"
                 Cannot convert type 'System.Boolean' to 'System.Int32'.
-            ";
-
-            AssertHasDiagnostics(text, diagnostics);
-        }
-
-        [Fact]
-        public void Evaluator_Unary_Reports_Undefined()
-        {
-            var text = @"[+]true";
-
-            var diagnostics = @"
-                Unary operator '+' is not defined for type 'System.Boolean'.
-            ";
-
-            AssertHasDiagnostics(text, diagnostics);
-        }
-
-        [Fact]
-        public void Evaluator_Binary_Reports_Undefined()
-        {
-            var text = @"10 [*] false";
-
-            var diagnostics = @"
-                Binary operator '*' is not defined for types 'System.Int32' and 'System.Boolean'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
