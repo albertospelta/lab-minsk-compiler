@@ -86,6 +86,18 @@ namespace Minsk.Test.CodeAnalysis
         }
 
         [Fact]
+        public void Evaluator_NameExpression_Reports_NoErrorForInsertedToken()
+        {
+            var text = @"[]";
+
+            var diagnostics = @"
+                Unexpected token: input <EndOfFileToken>, expected <IdentifierToken>.
+            ";
+
+            AssertHasDiagnostics(text, diagnostics);
+        }
+
+        [Fact]
         public void Evaluator_UnaryExpression_Reports_Undefined()
         {
             var text = @"[+]true";
