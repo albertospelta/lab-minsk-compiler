@@ -71,7 +71,7 @@ namespace Minsk.CodeAnalysis.Binding
 
         private BoundStatement BindIfStatement(IfStatementSyntax syntax)
         {
-            var condition = BindExpression(syntax.Condition);
+            var condition = BindExpression(syntax.Condition, typeof(bool));
             var thenStatement = BindStatement(syntax.ThenStatement);
             var elseStatement = syntax.ElseClause == null ? null : BindStatement(syntax.ElseClause.ElseStatement);
             return new BoundIfStatement(condition, thenStatement, elseStatement);
