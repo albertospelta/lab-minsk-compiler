@@ -45,4 +45,14 @@
 * Added statements
 * Added variable declaration statements
 
+### 7. Declarative tests, if-, while-, and for-statements
+
+* Made evaluation tests more declarative, especially for diagnostics
+* Added support for `<,` `<=`, `>=`, and `>`
+* Added support for if-statements
+* Added support for while-statements
+* Added support for for-statements
+* Ensure parser doesn't loop infinitely on malformed block
+* Ensure binder doesn't crash when binding fabricated identifiers
+
 ### [ ... ]

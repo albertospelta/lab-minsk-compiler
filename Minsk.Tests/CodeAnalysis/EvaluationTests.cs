@@ -74,6 +74,22 @@ namespace Minsk.Test.CodeAnalysis
         }
 
         [Fact]
+        public void Evaluator_BlockStatement_NoInfiniteLoop()
+        {
+            var text = @"
+                {
+                [)][]
+            ";
+
+            var diagnostics = @"
+                Unexpected token <CloseParenthesisToken>, expected <IdentifierToken>.
+                Unexpected token <EndOfFileToken>, expected <CloseBraceToken>.
+            ";
+
+            AssertHasDiagnostics(text, diagnostics);
+        }
+
+        [Fact]
         public void Evaluator_NameExpression_Reports_Undefined()
         {
             var text = @"[x] * 10";
@@ -91,7 +107,7 @@ namespace Minsk.Test.CodeAnalysis
             var text = @"[]";
 
             var diagnostics = @"
-                Unexpected token: input <EndOfFileToken>, expected <IdentifierToken>.
+                Unexpected token <EndOfFileToken>, expected <IdentifierToken>.
             ";
 
             AssertHasDiagnostics(text, diagnostics);

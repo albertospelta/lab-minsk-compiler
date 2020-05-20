@@ -39,7 +39,7 @@ namespace Minsk.CodeAnalysis
 
         public void ReportUnexpectedToken(TextSpan span, SyntaxKind actualKind, SyntaxKind expectedKind)
         {
-            var message = $"Unexpected token: input <{ actualKind }>, expected <{ expectedKind }>.";
+            var message = $"Unexpected token <{ actualKind }>, expected <{ expectedKind }>.";
             Report(span, message);
         }
 
