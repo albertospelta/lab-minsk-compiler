@@ -170,6 +170,18 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             if (type1Kind == SyntaxKind.GreatToken && type2Kind == SyntaxKind.EqualsEqualsToken)
                 return true;
 
+            if (type1Kind == SyntaxKind.AmpersandToken && type2Kind == SyntaxKind.AmpersandToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.AmpersandToken && type2Kind == SyntaxKind.AmpersandAmpersandToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.PipeToken && type2Kind == SyntaxKind.PipeToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.PipeToken && type2Kind == SyntaxKind.PipePipeToken)
+                return true;
+
             return false;
         }
 
