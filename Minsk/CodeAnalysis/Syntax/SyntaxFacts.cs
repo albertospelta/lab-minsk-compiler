@@ -30,6 +30,10 @@ namespace Minsk.CodeAnalysis.Syntax
                     return 4;
                 case SyntaxKind.EqualsEqualsToken:
                 case SyntaxKind.BangEqualsToken:
+                case SyntaxKind.LessToken:
+                case SyntaxKind.LessOrEqualsToken:
+                case SyntaxKind.GreatToken:
+                case SyntaxKind.GreaterOrEqualsToken:
                     return 3;
                 case SyntaxKind.AmpersandAmpersandToken:
                     return 2;
@@ -45,9 +49,14 @@ namespace Minsk.CodeAnalysis.Syntax
             return text switch
             {
                 "true" => SyntaxKind.TrueKeyword,
+                "if" => SyntaxKind.IfKeyword,
+                "else" => SyntaxKind.ElseKeyword,
                 "false" => SyntaxKind.FalseKeyword,
+                "for" => SyntaxKind.ForKeyword,
                 "let" => SyntaxKind.LetKeyword,
+                "to" => SyntaxKind.ToKeyword,
                 "var" => SyntaxKind.VarKeyword,
+                "while" => SyntaxKind.WhileKeyword,
                 _ => SyntaxKind.IdentifierToken,
             };
         }
@@ -82,6 +91,10 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.SlashToken => "/",
                 SyntaxKind.BangToken => "!",
                 SyntaxKind.EqualsToken => "=",
+                SyntaxKind.LessToken => "<",
+                SyntaxKind.LessOrEqualsToken => "<=",
+                SyntaxKind.GreatToken => ">",
+                SyntaxKind.GreaterOrEqualsToken => ">=",
                 SyntaxKind.AmpersandAmpersandToken => "&&",
                 SyntaxKind.PipePipeToken => "||",
                 SyntaxKind.EqualsEqualsToken => "==",
@@ -92,8 +105,13 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.CloseBraceToken => "}",
                 SyntaxKind.TrueKeyword => "true",
                 SyntaxKind.FalseKeyword => "false",
+                SyntaxKind.ForKeyword => "for",
+                SyntaxKind.IfKeyword => "if",
+                SyntaxKind.ElseKeyword => "else",
                 SyntaxKind.LetKeyword => "let",
+                SyntaxKind.ToKeyword => "to",
                 SyntaxKind.VarKeyword => "var",
+                SyntaxKind.WhileKeyword => "while",
                 _ => null,
             };
         }
