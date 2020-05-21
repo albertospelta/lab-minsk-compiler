@@ -44,6 +44,9 @@ namespace Minsk.CodeAnalysis.Binding
                             builder.Add(node.Statements[j]);
                     }
                 }
+
+                if (builder != null)
+                    builder.Add(newStatement);
             }
 
             if (builder == null)
