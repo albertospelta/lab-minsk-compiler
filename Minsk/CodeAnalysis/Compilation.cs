@@ -1,7 +1,9 @@
 ﻿using Minsk.CodeAnalysis.Binding;
+using Minsk.CodeAnalysis.Lowering;
 using Minsk.CodeAnalysis.Syntax;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -50,9 +52,22 @@ namespace Minsk.CodeAnalysis
             if (diagnostics.Any())
                 return new EvaluationResult(diagnostics, null);
 
-            var evaluator = new Evaluator(GlobalScope.Statement, variables);
+            var statement = GetStatement();
+            var evaluator = new Evaluator(statement, variables);
             var value = evaluator.Evaluate();
             return new EvaluationResult(ImmutableArray<Diagnostic>.Empty, value);
+        }
+
+        public void EmitTree(TextWriter writer)
+        {
+            var statement = GetStatement();
+            statement.WriteTo(writer);
+        }
+
+        private BoundBlockStatement GetStatement()
+        {
+            var statement = GlobalScope.Statement;
+            return Lowerer.Lower(statement);
         }
     }
 }

@@ -46,10 +46,10 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             var tokens = SyntaxTree.ParseTokens(text).ToArray();
 
             Assert.Equal(2, tokens.Length);
-            Assert.Equal(tokens[0].Kind, type1Kind);
-            Assert.Equal(tokens[0].Text, type1Text);
-            Assert.Equal(tokens[1].Kind, type2Kind);
-            Assert.Equal(tokens[1].Text, type2Text);
+            Assert.Equal(type1Kind, tokens[0].Kind);
+            Assert.Equal(type1Text, tokens[0].Text);
+            Assert.Equal(type2Kind, tokens[1].Kind);
+            Assert.Equal(type2Text, tokens[1].Text);
         }
 
         [Theory]
@@ -60,12 +60,12 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             var tokens = SyntaxTree.ParseTokens(text).ToArray();
 
             Assert.Equal(3, tokens.Length);
-            Assert.Equal(tokens[0].Kind, type1Kind);
-            Assert.Equal(tokens[0].Text, type1Text);
-            Assert.Equal(tokens[1].Kind, separetorKind);
-            Assert.Equal(tokens[1].Text, separatorText);
-            Assert.Equal(tokens[2].Kind, type2Kind);
-            Assert.Equal(tokens[2].Text, type2Text);
+            Assert.Equal(type1Kind, tokens[0].Kind);
+            Assert.Equal(type1Text, tokens[0].Text);
+            Assert.Equal(separetorKind, tokens[1].Kind);
+            Assert.Equal(separatorText, tokens[1].Text);
+            Assert.Equal(type2Kind, tokens[2].Kind);
+            Assert.Equal(type2Text, tokens[2].Text);
         }
 
         public static IEnumerable<object[]> GetTokensData()
@@ -168,6 +168,18 @@ namespace Minsk.Test.CodeAnalysis.Syntax
                 return true;
 
             if (type1Kind == SyntaxKind.GreatToken && type2Kind == SyntaxKind.EqualsEqualsToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.AmpersandToken && type2Kind == SyntaxKind.AmpersandToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.AmpersandToken && type2Kind == SyntaxKind.AmpersandAmpersandToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.PipeToken && type2Kind == SyntaxKind.PipeToken)
+                return true;
+
+            if (type1Kind == SyntaxKind.PipeToken && type2Kind == SyntaxKind.PipePipeToken)
                 return true;
 
             return false;
