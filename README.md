@@ -55,4 +55,13 @@
 * Ensure parser doesn't loop infinitely on malformed block
 * Ensure binder doesn't crash when binding fabricated identifiers
 
+### 8. Lowering
+
+* Add support for bitwise operators
+* Add ability to output the bound tree
+* Add ability to lower bound tree
+* Lower `for`-statements into `while`-statements
+* Print syntax and bound tree before evaluation
+* Lower `if`, `while`, and `for` into gotos
+
 ### [ ... ]
