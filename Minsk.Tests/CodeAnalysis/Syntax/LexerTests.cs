@@ -25,7 +25,7 @@ namespace Minsk.Test.CodeAnalysis.Syntax
         }
 
         [Fact]
-        public void Lexer_Tests_AllTokens()
+        public void Lexer_Covers_AllTokens()
         {
             var tokenKinds = Enum.GetValues(typeof(SyntaxKind))
                 .Cast<SyntaxKind>()
