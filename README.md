@@ -68,4 +68,8 @@
 
 * Add REPL ability to edit multiple lines, have history and syntax highlighting
 
+### 10. String literals and type symbols
+
+* Added support for string literals and type symbols
+
 ### [ ... ]
