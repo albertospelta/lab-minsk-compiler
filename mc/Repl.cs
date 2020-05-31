@@ -16,8 +16,6 @@ namespace Minsk
         {
             while (true)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-
                 var text = EditSubmission();
                 if (string.IsNullOrEmpty(text))
                     return;
@@ -81,7 +79,7 @@ namespace Minsk
                 if (numberOfBlankLines > 0)
                 {
                     var blankLine = new string(' ', Console.WindowWidth);
-                    for (int i = 0; i < numberOfBlankLines; i++)
+                    for (var i = 0; i < numberOfBlankLines; i++)
                     {
                         Console.SetCursorPosition(0, _cursorTop + lineCount + i);
                         Console.WriteLine(blankLine);
@@ -321,9 +319,9 @@ namespace Minsk
 
         private void HandleTab(ObservableCollection<string> document, SubmissionView view)
         {
-            const int TabWith = 4;
+            const int TabWidth = 4;
             var start = view.CurrentCharacter;
-            var remainingSpaces = TabWith - start % TabWith;
+            var remainingSpaces = TabWidth - start % TabWidth;
             var line = document[view.CurrentLine];
             document[view.CurrentLine] = line.Insert(start, new string(' ', remainingSpaces));
             view.CurrentCharacter += remainingSpaces;
