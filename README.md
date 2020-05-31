@@ -64,4 +64,8 @@
 * Print syntax and bound tree before evaluation
 * Lower `if`, `while`, and `for` into gotos
 
+### 9. A better REPL
+
+* Add REPL ability to edit multiple lines, have history and syntax highlighting
+
 ### [ ... ]
