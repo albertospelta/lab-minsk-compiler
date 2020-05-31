@@ -4,7 +4,7 @@ namespace Minsk.CodeAnalysis.Symbols
 {
     public sealed class VariableSymbol : Symbol
     {
-        public VariableSymbol(string name, bool isReadOnly, Type type)
+        public VariableSymbol(string name, bool isReadOnly, TypeSymbol type)
             : base(name)
         {
             IsReadOnly = isReadOnly;
@@ -12,7 +12,7 @@ namespace Minsk.CodeAnalysis.Symbols
         }
 
         public bool IsReadOnly { get; }
-        public Type Type { get; }
+        public TypeSymbol Type { get; }
 
         public override SymbolKind Kind => SymbolKind.Variable;
 

@@ -145,7 +145,7 @@ namespace Minsk.Test.CodeAnalysis
             var text = @"[+]true";
 
             var diagnostics = @"
-                Unary operator '+' is not defined for type 'System.Boolean'.
+                Unary operator '+' is not defined for type 'bool'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
@@ -157,7 +157,7 @@ namespace Minsk.Test.CodeAnalysis
             var text = @"10 [*] false";
 
             var diagnostics = @"
-                Binary operator '*' is not defined for types 'System.Int32' and 'System.Boolean'.
+                Binary operator '*' is not defined for types 'int' and 'bool'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
@@ -203,7 +203,7 @@ namespace Minsk.Test.CodeAnalysis
             ";
 
             var diagnostics = @"
-                Cannot convert type 'System.Boolean' to 'System.Int32'.
+                Cannot convert type 'bool' to 'int'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
@@ -221,7 +221,7 @@ namespace Minsk.Test.CodeAnalysis
             ";
 
             var diagnostics = @"
-                Cannot convert type 'System.Int32' to 'System.Boolean'.
+                Cannot convert type 'int' to 'bool'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
@@ -239,7 +239,7 @@ namespace Minsk.Test.CodeAnalysis
             ";
 
             var diagnostics = @"
-                Cannot convert type 'System.Int32' to 'System.Boolean'.
+                Cannot convert type 'int' to 'bool'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
@@ -257,7 +257,7 @@ namespace Minsk.Test.CodeAnalysis
             ";
 
             var diagnostics = @"
-                Cannot convert type 'System.Boolean' to 'System.Int32'.
+                Cannot convert type 'bool' to 'int'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
@@ -275,7 +275,7 @@ namespace Minsk.Test.CodeAnalysis
             ";
 
             var diagnostics = @"
-                Cannot convert type 'System.Boolean' to 'System.Int32'.
+                Cannot convert type 'bool' to 'int'.
             ";
 
             AssertHasDiagnostics(text, diagnostics);
