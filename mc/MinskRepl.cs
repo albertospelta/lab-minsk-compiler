@@ -70,6 +70,14 @@ namespace Minsk
             if (string.IsNullOrEmpty(text))
                 return true;
 
+            var lastToLinesAreBlank = text.Split(Environment.NewLine)
+                                          .Reverse()
+                                          .TakeWhile((s) => string.IsNullOrEmpty(s))
+                                          .Take(2)
+                                          .Count() == 2;
+            if (lastToLinesAreBlank)
+                return true;
+
             var syntaxTree = SyntaxTree.Parse(text);
             if (syntaxTree.Root.Statement.GetLastToken().IsMissing)
                 return false;
