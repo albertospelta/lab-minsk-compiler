@@ -52,7 +52,7 @@ namespace Minsk
                     break;
                 case "#reset":
                     _previous = null;
-                    Console.Clear();
+                    _variables.Clear();
                     break;
                 default:
                     base.EvaluateMetaCommand(input);
