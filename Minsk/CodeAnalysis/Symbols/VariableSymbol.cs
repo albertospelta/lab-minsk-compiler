@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Minsk.CodeAnalysis
+namespace Minsk.CodeAnalysis.Symbols
 {
     public sealed class VariableSymbol
     {
