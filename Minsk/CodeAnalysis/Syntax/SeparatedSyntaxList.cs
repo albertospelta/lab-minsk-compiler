@@ -9,8 +9,8 @@ namespace Minsk.CodeAnalysis.Syntax
         public abstract ImmutableArray<SyntaxNode> GetWithSeparators();
     }
 
-    public class SeparatedSyntaxList<T> : SeparatedSyntaxList, IEnumerable<T>
-        where T: SyntaxNode
+    public sealed class SeparatedSyntaxList<T> : SeparatedSyntaxList, IEnumerable<T>
+        where T : SyntaxNode
     {
         private readonly ImmutableArray<SyntaxNode> _nodesAndSeparators;
 

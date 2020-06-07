@@ -1,15 +1,16 @@
-﻿using Minsk.CodeAnalysis.Symbols;
-using Minsk.CodeAnalysis.Syntax;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Minsk.CodeAnalysis.Symbols;
+using Minsk.CodeAnalysis.Syntax;
 
 namespace Minsk.CodeAnalysis.Binding
 {
     internal sealed class Binder
     {
         private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
+
         private BoundScope _scope;
 
         public Binder(BoundScope parent)
@@ -19,19 +20,19 @@ namespace Minsk.CodeAnalysis.Binding
 
         public static BoundGlobalScope BindGlobalScope(BoundGlobalScope previous, CompilationUnitSyntax syntax)
         {
-            var parentScope = CreateParentScopes(previous); 
+            var parentScope = CreateParentScope(previous);
             var binder = new Binder(parentScope);
             var expression = binder.BindStatement(syntax.Statement);
             var variables = binder._scope.GetDeclaredVariables();
             var diagnostics = binder.Diagnostics.ToImmutableArray();
 
             if (previous != null)
-                diagnostics = diagnostics.InsertRange(0, previous.Diagnostics); 
+                diagnostics = diagnostics.InsertRange(0, previous.Diagnostics);
 
             return new BoundGlobalScope(previous, diagnostics, variables, expression);
         }
 
-        private static BoundScope CreateParentScopes(BoundGlobalScope previous)
+        private static BoundScope CreateParentScope(BoundGlobalScope previous)
         {
             var stack = new Stack<BoundGlobalScope>();
             while (previous != null)
@@ -59,16 +60,48 @@ namespace Minsk.CodeAnalysis.Binding
 
         private BoundStatement BindStatement(StatementSyntax syntax)
         {
-            return syntax.Kind switch
+            switch (syntax.Kind)
             {
-                SyntaxKind.BlockStatement => BindBlockStatement((BlockStatementSyntax)syntax),
-                SyntaxKind.VariableDeclaration => BindVariableDeclaration((VariableDeclarationSyntax)syntax),
-                SyntaxKind.IfStatement => BindIfStatement((IfStatementSyntax)syntax),
-                SyntaxKind.WhileStatement => BindWhileStatement((WhileStatementSyntax)syntax),
-                SyntaxKind.ForStatement => BindForStatement((ForStatementSyntax)syntax),
-                SyntaxKind.ExpressionStatement => BindExpressionStatement((ExpressionStatementSyntax)syntax),
-                _ => throw new Exception($"Unexpected syntax { syntax.Kind }"),
-            };
+                case SyntaxKind.BlockStatement:
+                    return BindBlockStatement((BlockStatementSyntax)syntax);
+                case SyntaxKind.VariableDeclaration:
+                    return BindVariableDeclaration((VariableDeclarationSyntax)syntax);
+                case SyntaxKind.IfStatement:
+                    return BindIfStatement((IfStatementSyntax)syntax);
+                case SyntaxKind.WhileStatement:
+                    return BindWhileStatement((WhileStatementSyntax)syntax);
+                case SyntaxKind.ForStatement:
+                    return BindForStatement((ForStatementSyntax)syntax);
+                case SyntaxKind.ExpressionStatement:
+                    return BindExpressionStatement((ExpressionStatementSyntax)syntax);
+                default:
+                    throw new Exception($"Unexpected syntax {syntax.Kind}");
+            }
+        }
+
+        private BoundStatement BindBlockStatement(BlockStatementSyntax syntax)
+        {
+            var statements = ImmutableArray.CreateBuilder<BoundStatement>();
+            _scope = new BoundScope(_scope);
+
+            foreach (var statementSyntax in syntax.Statements)
+            {
+                var statement = BindStatement(statementSyntax);
+                statements.Add(statement);
+            }
+
+            _scope = _scope.Parent;
+
+            return new BoundBlockStatement(statements.ToImmutable());
+        }
+
+        private BoundStatement BindVariableDeclaration(VariableDeclarationSyntax syntax)
+        {
+            var isReadOnly = syntax.Keyword.Kind == SyntaxKind.LetKeyword;
+            var initializer = BindExpression(syntax.Initializer);
+            var variable = BindVariable(syntax.Identifier, isReadOnly, initializer.Type);
+
+            return new BoundVariableDeclaration(variable, initializer);
         }
 
         private BoundStatement BindIfStatement(IfStatementSyntax syntax)
@@ -101,41 +134,28 @@ namespace Minsk.CodeAnalysis.Binding
             return new BoundForStatement(variable, lowerBound, upperBound, body);
         }
 
-        private BoundStatement BindBlockStatement(BlockStatementSyntax syntax)
-        {
-            var statements = ImmutableArray.CreateBuilder<BoundStatement>();
-            _scope = new BoundScope(_scope);
-
-            foreach (var syntaxStatement in syntax.Statements)
-            {
-                var statement = BindStatement(syntaxStatement);
-                statements.Add(statement);
-            }
-
-            _scope = _scope.Parent;
-
-            return new BoundBlockStatement(statements.ToImmutable());
-        }
-
-        private BoundStatement BindVariableDeclaration(VariableDeclarationSyntax syntax)
-        {
-            var isReadOnly = syntax.Keyword.Kind == SyntaxKind.LetKeyword;
-            var initializer = BindExpression(syntax.Initializer);
-            var variable = BindVariable(syntax.Identifier, isReadOnly, initializer.Type);
-
-            return new BoundVariableDeclaration(variable, initializer);
-        }
-
         private BoundStatement BindExpressionStatement(ExpressionStatementSyntax syntax)
         {
             var expression = BindExpression(syntax.Expression, canBeVoid: true);
             return new BoundExpressionStatement(expression);
         }
 
+        private BoundExpression BindExpression(ExpressionSyntax syntax, TypeSymbol targetType)
+        {
+            var result = BindExpression(syntax);
+            if (targetType != TypeSymbol.Error &&
+                result.Type != TypeSymbol.Error &&
+                result.Type != targetType)
+            {
+                _diagnostics.ReportCannotConvert(syntax.Span, result.Type, targetType);
+            }
+
+            return result;
+        }
+
         private BoundExpression BindExpression(ExpressionSyntax syntax, bool canBeVoid = false)
         {
             var result = BindExpressionInternal(syntax);
-
             if (!canBeVoid && result.Type == TypeSymbol.Void)
             {
                 _diagnostics.ReportExpressionMustHaveValue(syntax.Span);
@@ -147,31 +167,25 @@ namespace Minsk.CodeAnalysis.Binding
 
         private BoundExpression BindExpressionInternal(ExpressionSyntax syntax)
         {
-            return syntax.Kind switch
+            switch (syntax.Kind)
             {
-                SyntaxKind.ParenthesizedExpression => BindParenthesizedExpression((ParenthesizedExpressionSyntax)syntax),
-                SyntaxKind.LiteralExpression => BindLiteralExpression((LiteralExpressionSyntax)syntax),
-                SyntaxKind.NameExpression => BindNameExpression((NameExpressionSyntax)syntax),
-                SyntaxKind.AssignmentExpression => BindAssignmentExpression((AssignmentExpressionSyntax)syntax),
-                SyntaxKind.UnaryExpression => BindUnaryExpression((UnaryExpressionSyntax)syntax),
-                SyntaxKind.BinaryExpression => BindBinaryExpression((BinaryExpressionSyntax)syntax),
-                SyntaxKind.CallExpression => BindCallExpression((CallExpressionSyntax)syntax),
-                _ => throw new Exception($"Unexpected syntax { syntax.Kind }"),
-            };
-        }
-
-        private BoundExpression BindExpression(ExpressionSyntax syntax, TypeSymbol targetType)
-        {
-            var result = BindExpression(syntax);
-
-            if (targetType != TypeSymbol.Error &&
-                result.Type != TypeSymbol.Error &&
-                result.Type != targetType)
-            {
-                _diagnostics.ReportCannotConvert(syntax.Span, result.Type, targetType);
+                case SyntaxKind.ParenthesizedExpression:
+                    return BindParenthesizedExpression((ParenthesizedExpressionSyntax)syntax);
+                case SyntaxKind.LiteralExpression:
+                    return BindLiteralExpression((LiteralExpressionSyntax)syntax);
+                case SyntaxKind.NameExpression:
+                    return BindNameExpression((NameExpressionSyntax)syntax);
+                case SyntaxKind.AssignmentExpression:
+                    return BindAssignmentExpression((AssignmentExpressionSyntax)syntax);
+                case SyntaxKind.UnaryExpression:
+                    return BindUnaryExpression((UnaryExpressionSyntax)syntax);
+                case SyntaxKind.BinaryExpression:
+                    return BindBinaryExpression((BinaryExpressionSyntax)syntax);
+                case SyntaxKind.CallExpression:
+                    return BindCallExpression((CallExpressionSyntax)syntax);
+                default:
+                    throw new Exception($"Unexpected syntax {syntax.Kind}");
             }
-
-            return result;
         }
 
         private BoundExpression BindParenthesizedExpression(ParenthesizedExpressionSyntax syntax)
@@ -230,8 +244,8 @@ namespace Minsk.CodeAnalysis.Binding
             if (boundOperand.Type == TypeSymbol.Error)
                 return new BoundErrorExpression();
 
-            var boundOperator = BoundUnaryOperator.Bind(syntax.OperatorToken.Kind, boundOperand.Type);    
-            
+            var boundOperator = BoundUnaryOperator.Bind(syntax.OperatorToken.Kind, boundOperand.Type);
+
             if (boundOperator == null)
             {
                 _diagnostics.ReportUndefinedUnaryOperator(syntax.OperatorToken.Span, syntax.OperatorToken.Text, boundOperand.Type);
@@ -259,6 +273,7 @@ namespace Minsk.CodeAnalysis.Binding
 
             return new BoundBinaryExpression(boundLeft, boundOperator, boundRight);
         }
+
         private BoundExpression BindCallExpression(CallExpressionSyntax syntax)
         {
             var boundArguments = ImmutableArray.CreateBuilder<BoundExpression>();
@@ -271,10 +286,10 @@ namespace Minsk.CodeAnalysis.Binding
 
             var functions = BuiltinFunctions.GetAll();
 
-            var function = functions.SingleOrDefault((f) => f.Name == syntax.IdentifierToken.Text);
+            var function = functions.SingleOrDefault(f => f.Name == syntax.Identifier.Text);
             if (function == null)
             {
-                _diagnostics.ReportUndefinedFunction(syntax.IdentifierToken.Span, syntax.IdentifierToken.Text);
+                _diagnostics.ReportUndefinedFunction(syntax.Identifier.Span, syntax.Identifier.Text);
                 return new BoundErrorExpression();
             }
 
