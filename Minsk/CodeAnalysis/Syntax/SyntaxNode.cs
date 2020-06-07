@@ -56,6 +56,7 @@ namespace Minsk.CodeAnalysis.Syntax
             if (this is SyntaxToken token)
                 return token;
 
+            // A syntax node should always contain at least 1 token.
             return GetChildren().Last().GetLastToken();
         }
 
@@ -69,11 +70,10 @@ namespace Minsk.CodeAnalysis.Syntax
             var isToConsole = writer == Console.Out;
             var marker = isLast ? "└──" : "├──";
 
-            writer.Write(indent);
-
             if (isToConsole)
                 Console.ForegroundColor = ConsoleColor.DarkGray;
 
+            writer.Write(indent);
             writer.Write(marker);
 
             if (isToConsole)
