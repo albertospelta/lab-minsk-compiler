@@ -109,6 +109,7 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.CloseParenthesisToken => ")",
                 SyntaxKind.OpenBraceToken => "{",
                 SyntaxKind.CloseBraceToken => "}",
+                SyntaxKind.CommaToken => ",",
                 SyntaxKind.TildeToken => "~",
                 SyntaxKind.HatToken => "^",
                 SyntaxKind.TrueKeyword => "true",
