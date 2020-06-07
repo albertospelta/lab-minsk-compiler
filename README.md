@@ -72,4 +72,8 @@
 
 * Added support for string literals and type symbols
 
+### 11. Function calls
+
+* Added support for calling built-in functions and convert between types
+
 ### [ ... ]
