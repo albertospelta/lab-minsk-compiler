@@ -61,6 +61,7 @@ namespace Minsk.CodeAnalysis.Syntax
                 "to" => SyntaxKind.ToKeyword,
                 "var" => SyntaxKind.VarKeyword,
                 "while" => SyntaxKind.WhileKeyword,
+                "do" => SyntaxKind.DoKeyword,
                 _ => SyntaxKind.IdentifierToken,
             };
         }
@@ -121,6 +122,7 @@ namespace Minsk.CodeAnalysis.Syntax
                 SyntaxKind.ToKeyword => "to",
                 SyntaxKind.VarKeyword => "var",
                 SyntaxKind.WhileKeyword => "while",
+                SyntaxKind.DoKeyword => "do",
                 _ => null,
             };
         }
