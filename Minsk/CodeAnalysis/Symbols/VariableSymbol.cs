@@ -2,20 +2,17 @@
 
 namespace Minsk.CodeAnalysis.Symbols
 {
-    public sealed class VariableSymbol : Symbol
+    public class VariableSymbol : Symbol
     {
-        public VariableSymbol(string name, bool isReadOnly, TypeSymbol type)
+        internal VariableSymbol(string name, bool isReadOnly, TypeSymbol type)
             : base(name)
         {
             IsReadOnly = isReadOnly;
             Type = type;
         }
 
+        public override SymbolKind Kind => SymbolKind.Variable;
         public bool IsReadOnly { get; }
         public TypeSymbol Type { get; }
-
-        public override SymbolKind Kind => SymbolKind.Variable;
-
-        public override string ToString() => Name;
     }
 }
