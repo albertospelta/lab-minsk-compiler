@@ -301,6 +301,23 @@ namespace Minsk.Test.CodeAnalysis
             AssertDiagnostics(text, diagnostics);
         }
 
+        [Fact]
+        public void Evaluator_Variables_Can_Shadow_Functions()
+        {
+            var text = @"
+                {
+                    let print = 42
+                    [print](""test"")
+                }
+            ";
+
+            var diagnostics = @"
+                Function 'print' doesn't exist.
+            ";
+
+            AssertDiagnostics(text, diagnostics);
+        }
+
         private static void AssertValue(string text, object expectedValue)
         {
             var syntaxTree = SyntaxTree.Parse(text);
