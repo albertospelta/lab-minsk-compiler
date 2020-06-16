@@ -36,7 +36,7 @@ namespace Minsk.CodeAnalysis.Lowering
             var stack = new Stack<BoundStatement>();
             stack.Push(statement);
 
-            while (stack.Count > 0 )
+            while (stack.Count > 0)
             {
                 var current = stack.Pop();
 
@@ -129,25 +129,21 @@ namespace Minsk.CodeAnalysis.Lowering
             //      <body>
             // check:
             // gotoTrue <condition> continue
-            // end:
 
             var continueLabel = GenerateLabel();
             var checkLabel = GenerateLabel();
-            var endLabel = GenerateLabel();
 
             var gotoCheck = new BoundGotoStatement(checkLabel);
             var continueLabelStatement = new BoundLabelStatement(continueLabel);
             var checkLabelStatement = new BoundLabelStatement(checkLabel);
             var gotoTrue = new BoundConditionalGotoStatement(continueLabel, node.Condition, jumpIfTrue: true);
-            var endLabelStatement = new BoundLabelStatement(endLabel);
 
             var result = new BoundBlockStatement(ImmutableArray.Create<BoundStatement>(
                 gotoCheck,
                 continueLabelStatement,
                 node.Body,
                 checkLabelStatement,
-                gotoTrue,
-                endLabelStatement
+                gotoTrue
             ));
 
             return RewriteStatement(result);
