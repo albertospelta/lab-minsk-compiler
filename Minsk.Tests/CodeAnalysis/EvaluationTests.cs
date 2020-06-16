@@ -97,7 +97,7 @@ namespace Minsk.Test.CodeAnalysis
                 Variable 'x' is already declared.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace Minsk.Test.CodeAnalysis
                 Unexpected token <EndOfFileToken>, expected <CloseBraceToken>.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace Minsk.Test.CodeAnalysis
                 Variable 'x' doesn't exist.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace Minsk.Test.CodeAnalysis
                 Unexpected token <EndOfFileToken>, expected <IdentifierToken>.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace Minsk.Test.CodeAnalysis
                 Unary operator '+' is not defined for type 'bool'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -161,7 +161,7 @@ namespace Minsk.Test.CodeAnalysis
                 Binary operator '*' is not defined for types 'int' and 'bool'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -173,7 +173,7 @@ namespace Minsk.Test.CodeAnalysis
                 Variable 'x' doesn't exist.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -190,7 +190,7 @@ namespace Minsk.Test.CodeAnalysis
                 Variable 'x' is read-only and cannot be assigned to.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -207,7 +207,7 @@ namespace Minsk.Test.CodeAnalysis
                 Cannot convert type 'bool' to 'int'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -225,7 +225,7 @@ namespace Minsk.Test.CodeAnalysis
                 Cannot convert type 'int' to 'bool'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -243,7 +243,7 @@ namespace Minsk.Test.CodeAnalysis
                 Cannot convert type 'int' to 'bool'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -262,7 +262,7 @@ namespace Minsk.Test.CodeAnalysis
                 Cannot convert type 'int' to 'bool'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -280,7 +280,7 @@ namespace Minsk.Test.CodeAnalysis
                 Cannot convert type 'bool' to 'int'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         [Fact]
@@ -298,7 +298,7 @@ namespace Minsk.Test.CodeAnalysis
                 Cannot convert type 'bool' to 'int'.
             ";
 
-            AssertHasDiagnostics(text, diagnostics);
+            AssertDiagnostics(text, diagnostics);
         }
 
         private static void AssertValue(string text, object expectedValue)
@@ -312,7 +312,7 @@ namespace Minsk.Test.CodeAnalysis
             Assert.Equal(expectedValue, result.Value);
         }
 
-        private void AssertHasDiagnostics(string text, string diagnosticText)
+        private void AssertDiagnostics(string text, string diagnosticText)
         {
             var annotatedText = AnnotatedText.Parse(text);
             var syntaxTree = SyntaxTree.Parse(annotatedText.Text);
