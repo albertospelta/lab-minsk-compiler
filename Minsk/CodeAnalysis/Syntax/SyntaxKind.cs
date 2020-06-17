@@ -30,6 +30,7 @@
         CloseParenthesisToken,
         OpenBraceToken,
         CloseBraceToken,
+        ColonToken,
         CommaToken,
         IdentifierToken,
 
@@ -48,6 +49,7 @@
         // Nodes
         CompilationUnit,
         ElseClause,
+        TypeClause,
 
         // Statements
         BlockStatement,
