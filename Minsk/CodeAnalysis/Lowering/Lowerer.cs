@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Minsk.CodeAnalysis.Lowering
 {
-    internal class Lowerer : BoundTreeRewriter
+    internal sealed class Lowerer : BoundTreeRewriter
     {
         private int _labelCount;
 
@@ -36,7 +36,7 @@ namespace Minsk.CodeAnalysis.Lowering
             var stack = new Stack<BoundStatement>();
             stack.Push(statement);
 
-            while (stack.Count > 0 )
+            while (stack.Count > 0)
             {
                 var current = stack.Pop();
 
@@ -73,8 +73,8 @@ namespace Minsk.CodeAnalysis.Lowering
                 var endLabelStatement = new BoundLabelStatement(endLabel);
 
                 var result = new BoundBlockStatement(ImmutableArray.Create<BoundStatement>(
-                    gotoFalse, 
-                    node.ThenStatement, 
+                    gotoFalse,
+                    node.ThenStatement,
                     endLabelStatement
                 ));
 
@@ -105,8 +105,8 @@ namespace Minsk.CodeAnalysis.Lowering
                 var endLabelStatement = new BoundLabelStatement(endLabel);
 
                 var result = new BoundBlockStatement(ImmutableArray.Create<BoundStatement>(
-                    gotoFalse, 
-                    node.ThenStatement, 
+                    gotoFalse,
+                    node.ThenStatement,
                     gotoEndStatement,
                     elseLabelStatement,
                     node.ElseStatement,
@@ -129,25 +129,48 @@ namespace Minsk.CodeAnalysis.Lowering
             //      <body>
             // check:
             // gotoTrue <condition> continue
-            // end:
 
             var continueLabel = GenerateLabel();
             var checkLabel = GenerateLabel();
-            var endLabel = GenerateLabel();
 
             var gotoCheck = new BoundGotoStatement(checkLabel);
             var continueLabelStatement = new BoundLabelStatement(continueLabel);
             var checkLabelStatement = new BoundLabelStatement(checkLabel);
             var gotoTrue = new BoundConditionalGotoStatement(continueLabel, node.Condition, jumpIfTrue: true);
-            var endLabelStatement = new BoundLabelStatement(endLabel);
 
             var result = new BoundBlockStatement(ImmutableArray.Create<BoundStatement>(
                 gotoCheck,
                 continueLabelStatement,
                 node.Body,
                 checkLabelStatement,
-                gotoTrue,
-                endLabelStatement
+                gotoTrue
+            ));
+
+            return RewriteStatement(result);
+        }
+
+        protected override BoundStatement RewriteDoWhileStatement(BoundDoWhileStatement node)
+        {
+            // do
+            //      <body>
+            // while <condition>
+            //
+            // ---->
+            //
+            // continue:
+            //      <body>
+            // gotoTrue <condition> continue
+
+            var continueLabel = GenerateLabel();
+            var endLabel = GenerateLabel();
+
+            var continueLabelStatement = new BoundLabelStatement(continueLabel);
+            var gotoTrue = new BoundConditionalGotoStatement(continueLabel, node.Condition, jumpIfTrue: true);
+
+            var result = new BoundBlockStatement(ImmutableArray.Create<BoundStatement>(
+                continueLabelStatement,
+                node.Body,
+                gotoTrue
             ));
 
             return RewriteStatement(result);
@@ -155,7 +178,7 @@ namespace Minsk.CodeAnalysis.Lowering
 
         protected override BoundStatement RewriteForStatement(BoundForStatement node)
         {
-            // for i <lower> to <upper>
+            // for <var> = <lower> to <upper>
             //      <body>
             //
             // ---->
@@ -172,7 +195,7 @@ namespace Minsk.CodeAnalysis.Lowering
 
             var variableDeclaration = new BoundVariableDeclaration(node.Variable, node.LowerBound);
             var variableExpression = new BoundVariableExpression(node.Variable);
-            var upperBoundSymbol = new VariableSymbol("upperBound", isReadOnly: true, TypeSymbol.Int);
+            var upperBoundSymbol = new LocalVariableSymbol("upperBound", isReadOnly: true, TypeSymbol.Int);
             var upperBoundDeclaration = new BoundVariableDeclaration(upperBoundSymbol, node.UpperBound);
             var condition = new BoundBinaryExpression(
                 variableExpression,

@@ -10,6 +10,18 @@ namespace Minsk
 {
     internal sealed class MinskRepl : Repl
     {
+        private class TextSpanComparer : IComparer<TextSpan>
+        {
+            public int Compare(TextSpan x, TextSpan y)
+            {
+                var value = x.Start - y.Start;
+                if (value == 0)
+                    value = x.Length - y.Length;
+
+                return value;
+            }
+        }
+
         private Compilation _previous;
         private bool _showTree;
         private bool _showProgram;
@@ -83,7 +95,7 @@ namespace Minsk
                 return true;
 
             var syntaxTree = SyntaxTree.Parse(text);
-            if (syntaxTree.Root.Statement.GetLastToken().IsMissing)
+            if (syntaxTree.Root.Members.Last().GetLastToken().IsMissing)
                 return false;
 
             return true;
@@ -117,7 +129,7 @@ namespace Minsk
             }
             else
             {
-                foreach (var diagnostic in result.Diagnostics)
+                foreach (var diagnostic in result.Diagnostics.OrderBy((d) => d.Span, new TextSpanComparer()))
                 {
                     var lineIndex = syntaxTree.Text.GetLineIndex(diagnostic.Span.Start);
                     var line = syntaxTree.Text.Lines[lineIndex];

@@ -76,4 +76,8 @@
 
 * Added support for calling built-in functions and convert between types
 
+### 12. Declaring functions
+
+* Added support for explicit typing of variables and function declarations
+
 ### [ ... ]

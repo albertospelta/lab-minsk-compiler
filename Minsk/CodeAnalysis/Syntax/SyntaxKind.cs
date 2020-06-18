@@ -5,7 +5,7 @@
         // Tokens
         BadToken,
         EndOfFileToken,
-        WhiteSpaceToken,
+        WhitespaceToken,
         NumberToken,
         StringToken,
         PlusToken,
@@ -24,28 +24,35 @@
         BangEqualsToken,
         LessToken,
         LessOrEqualsToken,
-        GreatToken,
+        GreaterToken,
         GreaterOrEqualsToken,
         OpenParenthesisToken,
         CloseParenthesisToken,
         OpenBraceToken,
         CloseBraceToken,
+        ColonToken,
         CommaToken,
         IdentifierToken,
 
-        // Keyword
-        TrueKeyword,
+        // Keywords
+        ElseKeyword,
         FalseKeyword,
         ForKeyword,
+        FunctionKeyword,
         IfKeyword,
-        ElseKeyword,
         LetKeyword,
         ToKeyword,
+        TrueKeyword,
         VarKeyword,
         WhileKeyword,
+        DoKeyword,
 
         // Nodes
         CompilationUnit,
+        FunctionDeclaration,
+        GlobalStatement,
+        Parameter,
+        TypeClause,
         ElseClause,
 
         // Statements
@@ -53,6 +60,7 @@
         VariableDeclaration,
         IfStatement,
         WhileStatement,
+        DoWhileStatement,
         ForStatement,
         ExpressionStatement,
 

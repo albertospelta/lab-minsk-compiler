@@ -76,6 +76,10 @@ namespace Minsk.CodeAnalysis.Syntax
                     _kind = SyntaxKind.OpenBraceToken;
                     _position++;
                     break;
+                case ':':
+                    _kind = SyntaxKind.ColonToken;
+                    _position++;
+                    break;
                 case '}':
                     _kind = SyntaxKind.CloseBraceToken;
                     _position++;
@@ -156,7 +160,7 @@ namespace Minsk.CodeAnalysis.Syntax
                     _position++;
                     if (Current != '=')
                     {
-                        _kind = SyntaxKind.GreatToken;
+                        _kind = SyntaxKind.GreaterToken;
                     }
                     else
                     {
@@ -257,7 +261,7 @@ namespace Minsk.CodeAnalysis.Syntax
             while (char.IsWhiteSpace(Current))
                 _position++;
 
-            _kind = SyntaxKind.WhiteSpaceToken;
+            _kind = SyntaxKind.WhitespaceToken;
         }
 
         private void ReadNumberToken()
