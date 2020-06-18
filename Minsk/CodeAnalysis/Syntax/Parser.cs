@@ -126,11 +126,11 @@ namespace Minsk.CodeAnalysis.Syntax
                 var parameter = ParseParameter();
                 nodesAndSeparators.Add(parameter);
 
-                if (Current.Kind != SyntaxKind.CloseParenthesisToken)
-                {
-                    var comma = MatchToken(SyntaxKind.CommaToken);
-                    nodesAndSeparators.Add(comma);
-                }
+                if (Current.Kind != SyntaxKind.CommaToken)
+                    break;
+
+                var comma = MatchToken(SyntaxKind.CommaToken);
+                nodesAndSeparators.Add(comma);
             }
 
             return new SeparatedSyntaxList<ParameterSyntax>(nodesAndSeparators.ToImmutable());
@@ -407,11 +407,11 @@ namespace Minsk.CodeAnalysis.Syntax
                 var expression = ParseExpression();
                 nodesAndSeparators.Add(expression);
 
-                if (Current.Kind != SyntaxKind.CloseParenthesisToken)
-                {
-                    var comma = MatchToken(SyntaxKind.CommaToken);
-                    nodesAndSeparators.Add(comma);
-                }
+                if (Current.Kind != SyntaxKind.CommaToken)
+                    break;
+
+                var comma = MatchToken(SyntaxKind.CommaToken);
+                nodesAndSeparators.Add(comma);                
             }
 
             return new SeparatedSyntaxList<ExpressionSyntax>(nodesAndSeparators.ToImmutable());
