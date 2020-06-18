@@ -105,7 +105,7 @@ namespace Minsk.CodeAnalysis.Binding
 
             var type = BindTypeClause(syntax.Type) ?? TypeSymbol.Void;
             if (type != TypeSymbol.Void)
-                _diagnostics.XXX_ReportFunctionsAreUnsupported(syntax.Span);
+                _diagnostics.XXX_ReportFunctionsAreUnsupported(syntax.Type.Span);
 
             var function = new FunctionSymbol(syntax.Identifier.Text, parameters.ToImmutable(), type, syntax);
             if (!_scope.TryDeclareFunction(function))

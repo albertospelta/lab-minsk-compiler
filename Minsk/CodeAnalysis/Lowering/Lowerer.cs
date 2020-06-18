@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Minsk.CodeAnalysis.Lowering
 {
-    internal class Lowerer : BoundTreeRewriter
+    internal sealed class Lowerer : BoundTreeRewriter
     {
         private int _labelCount;
 
@@ -73,8 +73,8 @@ namespace Minsk.CodeAnalysis.Lowering
                 var endLabelStatement = new BoundLabelStatement(endLabel);
 
                 var result = new BoundBlockStatement(ImmutableArray.Create<BoundStatement>(
-                    gotoFalse, 
-                    node.ThenStatement, 
+                    gotoFalse,
+                    node.ThenStatement,
                     endLabelStatement
                 ));
 
@@ -105,8 +105,8 @@ namespace Minsk.CodeAnalysis.Lowering
                 var endLabelStatement = new BoundLabelStatement(endLabel);
 
                 var result = new BoundBlockStatement(ImmutableArray.Create<BoundStatement>(
-                    gotoFalse, 
-                    node.ThenStatement, 
+                    gotoFalse,
+                    node.ThenStatement,
                     gotoEndStatement,
                     elseLabelStatement,
                     node.ElseStatement,
@@ -178,7 +178,7 @@ namespace Minsk.CodeAnalysis.Lowering
 
         protected override BoundStatement RewriteForStatement(BoundForStatement node)
         {
-            // for i <lower> to <upper>
+            // for <var> = <lower> to <upper>
             //      <body>
             //
             // ---->

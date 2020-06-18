@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Minsk.CodeAnalysis
 {
-    public class Compilation
+    public sealed class Compilation
     {
         private BoundGlobalScope _globalScope;
 

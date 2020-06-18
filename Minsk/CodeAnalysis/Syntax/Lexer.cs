@@ -160,7 +160,7 @@ namespace Minsk.CodeAnalysis.Syntax
                     _position++;
                     if (Current != '=')
                     {
-                        _kind = SyntaxKind.GreatToken;
+                        _kind = SyntaxKind.GreaterToken;
                     }
                     else
                     {
@@ -261,7 +261,7 @@ namespace Minsk.CodeAnalysis.Syntax
             while (char.IsWhiteSpace(Current))
                 _position++;
 
-            _kind = SyntaxKind.WhiteSpaceToken;
+            _kind = SyntaxKind.WhitespaceToken;
         }
 
         private void ReadNumberToken()

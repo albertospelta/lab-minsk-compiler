@@ -5,7 +5,7 @@
         // Tokens
         BadToken,
         EndOfFileToken,
-        WhiteSpaceToken,
+        WhitespaceToken,
         NumberToken,
         StringToken,
         PlusToken,
@@ -24,7 +24,7 @@
         BangEqualsToken,
         LessToken,
         LessOrEqualsToken,
-        GreatToken,
+        GreaterToken,
         GreaterOrEqualsToken,
         OpenParenthesisToken,
         CloseParenthesisToken,
@@ -34,15 +34,15 @@
         CommaToken,
         IdentifierToken,
 
-        // Keyword
-        TrueKeyword,
+        // Keywords
+        ElseKeyword,
         FalseKeyword,
         ForKeyword,
         FunctionKeyword,
         IfKeyword,
-        ElseKeyword,
         LetKeyword,
         ToKeyword,
+        TrueKeyword,
         VarKeyword,
         WhileKeyword,
         DoKeyword,

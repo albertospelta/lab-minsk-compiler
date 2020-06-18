@@ -136,11 +136,11 @@ namespace Minsk.Test.CodeAnalysis.Syntax
         {
             return new[]
             {
-                (SyntaxKind.WhiteSpaceToken, " "),
-                (SyntaxKind.WhiteSpaceToken, "  "),
-                (SyntaxKind.WhiteSpaceToken, "\r"),
-                (SyntaxKind.WhiteSpaceToken, "\n"),
-                (SyntaxKind.WhiteSpaceToken, "\r\n")
+                (SyntaxKind.WhitespaceToken, " "),
+                (SyntaxKind.WhitespaceToken, "  "),
+                (SyntaxKind.WhitespaceToken, "\r"),
+                (SyntaxKind.WhitespaceToken, "\n"),
+                (SyntaxKind.WhitespaceToken, "\r\n")
             };
         }
 
@@ -185,10 +185,10 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             if (type1Kind == SyntaxKind.LessToken && type2Kind == SyntaxKind.EqualsEqualsToken)
                 return true;
 
-            if (type1Kind == SyntaxKind.GreatToken && type2Kind == SyntaxKind.EqualsToken)
+            if (type1Kind == SyntaxKind.GreaterToken && type2Kind == SyntaxKind.EqualsToken)
                 return true;
 
-            if (type1Kind == SyntaxKind.GreatToken && type2Kind == SyntaxKind.EqualsEqualsToken)
+            if (type1Kind == SyntaxKind.GreaterToken && type2Kind == SyntaxKind.EqualsEqualsToken)
                 return true;
 
             if (type1Kind == SyntaxKind.AmpersandToken && type2Kind == SyntaxKind.AmpersandToken)

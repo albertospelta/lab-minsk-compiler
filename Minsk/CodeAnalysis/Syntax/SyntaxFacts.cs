@@ -33,7 +33,7 @@ namespace Minsk.CodeAnalysis.Syntax
                 case SyntaxKind.BangEqualsToken:
                 case SyntaxKind.LessToken:
                 case SyntaxKind.LessOrEqualsToken:
-                case SyntaxKind.GreatToken:
+                case SyntaxKind.GreaterToken:
                 case SyntaxKind.GreaterOrEqualsToken:
                     return 3;
                 case SyntaxKind.AmpersandToken:
@@ -50,21 +50,33 @@ namespace Minsk.CodeAnalysis.Syntax
 
         public static SyntaxKind GetKeywordKind(string text)
         {
-            return text switch
+            switch (text)
             {
-                "true" => SyntaxKind.TrueKeyword,
-                "if" => SyntaxKind.IfKeyword,
-                "else" => SyntaxKind.ElseKeyword,
-                "false" => SyntaxKind.FalseKeyword,
-                "for" => SyntaxKind.ForKeyword,
-                "function" => SyntaxKind.FunctionKeyword,
-                "let" => SyntaxKind.LetKeyword,
-                "to" => SyntaxKind.ToKeyword,
-                "var" => SyntaxKind.VarKeyword,
-                "while" => SyntaxKind.WhileKeyword,
-                "do" => SyntaxKind.DoKeyword,
-                _ => SyntaxKind.IdentifierToken,
-            };
+                case "else":
+                    return SyntaxKind.ElseKeyword;
+                case "false":
+                    return SyntaxKind.FalseKeyword;
+                case "for":
+                    return SyntaxKind.ForKeyword;
+                case "function":
+                    return SyntaxKind.FunctionKeyword;
+                case "if":
+                    return SyntaxKind.IfKeyword;
+                case "let":
+                    return SyntaxKind.LetKeyword;
+                case "to":
+                    return SyntaxKind.ToKeyword;
+                case "true":
+                    return SyntaxKind.TrueKeyword;
+                case "var":
+                    return SyntaxKind.VarKeyword;
+                case "while":
+                    return SyntaxKind.WhileKeyword;
+                case "do":
+                    return SyntaxKind.DoKeyword;
+                default:
+                    return SyntaxKind.IdentifierToken;
+            }
         }
 
         public static IEnumerable<SyntaxKind> GetUnaryOperatorKinds()
@@ -89,45 +101,81 @@ namespace Minsk.CodeAnalysis.Syntax
 
         public static string GetText(SyntaxKind kind)
         {
-            return kind switch
+            switch (kind)
             {
-                SyntaxKind.PlusToken => "+",
-                SyntaxKind.MinusToken => "-",
-                SyntaxKind.StarToken => "*",
-                SyntaxKind.SlashToken => "/",
-                SyntaxKind.BangToken => "!",
-                SyntaxKind.EqualsToken => "=",
-                SyntaxKind.LessToken => "<",
-                SyntaxKind.LessOrEqualsToken => "<=",
-                SyntaxKind.GreatToken => ">",
-                SyntaxKind.GreaterOrEqualsToken => ">=",
-                SyntaxKind.AmpersandToken => "&",
-                SyntaxKind.AmpersandAmpersandToken => "&&",
-                SyntaxKind.PipeToken => "|",
-                SyntaxKind.PipePipeToken => "||",
-                SyntaxKind.EqualsEqualsToken => "==",
-                SyntaxKind.BangEqualsToken => "!=",
-                SyntaxKind.OpenParenthesisToken => "(",
-                SyntaxKind.CloseParenthesisToken => ")",
-                SyntaxKind.OpenBraceToken => "{",
-                SyntaxKind.CloseBraceToken => "}",
-                SyntaxKind.ColonToken => ":",
-                SyntaxKind.CommaToken => ",",
-                SyntaxKind.TildeToken => "~",
-                SyntaxKind.HatToken => "^",
-                SyntaxKind.TrueKeyword => "true",
-                SyntaxKind.FalseKeyword => "false",
-                SyntaxKind.ForKeyword => "for",
-                SyntaxKind.FunctionKeyword => "function",
-                SyntaxKind.IfKeyword => "if",
-                SyntaxKind.ElseKeyword => "else",
-                SyntaxKind.LetKeyword => "let",
-                SyntaxKind.ToKeyword => "to",
-                SyntaxKind.VarKeyword => "var",
-                SyntaxKind.WhileKeyword => "while",
-                SyntaxKind.DoKeyword => "do",
-                _ => null,
-            };
+                case SyntaxKind.PlusToken:
+                    return "+";
+                case SyntaxKind.MinusToken:
+                    return "-";
+                case SyntaxKind.StarToken:
+                    return "*";
+                case SyntaxKind.SlashToken:
+                    return "/";
+                case SyntaxKind.BangToken:
+                    return "!";
+                case SyntaxKind.EqualsToken:
+                    return "=";
+                case SyntaxKind.TildeToken:
+                    return "~";
+                case SyntaxKind.LessToken:
+                    return "<";
+                case SyntaxKind.LessOrEqualsToken:
+                    return "<=";
+                case SyntaxKind.GreaterToken:
+                    return ">";
+                case SyntaxKind.GreaterOrEqualsToken:
+                    return ">=";
+                case SyntaxKind.AmpersandToken:
+                    return "&";
+                case SyntaxKind.AmpersandAmpersandToken:
+                    return "&&";
+                case SyntaxKind.PipeToken:
+                    return "|";
+                case SyntaxKind.PipePipeToken:
+                    return "||";
+                case SyntaxKind.HatToken:
+                    return "^";
+                case SyntaxKind.EqualsEqualsToken:
+                    return "==";
+                case SyntaxKind.BangEqualsToken:
+                    return "!=";
+                case SyntaxKind.OpenParenthesisToken:
+                    return "(";
+                case SyntaxKind.CloseParenthesisToken:
+                    return ")";
+                case SyntaxKind.OpenBraceToken:
+                    return "{";
+                case SyntaxKind.CloseBraceToken:
+                    return "}";
+                case SyntaxKind.ColonToken:
+                    return ":";
+                case SyntaxKind.CommaToken:
+                    return ",";
+                case SyntaxKind.ElseKeyword:
+                    return "else";
+                case SyntaxKind.FalseKeyword:
+                    return "false";
+                case SyntaxKind.ForKeyword:
+                    return "for";
+                case SyntaxKind.FunctionKeyword:
+                    return "function";
+                case SyntaxKind.IfKeyword:
+                    return "if";
+                case SyntaxKind.LetKeyword:
+                    return "let";
+                case SyntaxKind.ToKeyword:
+                    return "to";
+                case SyntaxKind.TrueKeyword:
+                    return "true";
+                case SyntaxKind.VarKeyword:
+                    return "var";
+                case SyntaxKind.WhileKeyword:
+                    return "while";
+                case SyntaxKind.DoKeyword:
+                    return "do";
+                default:
+                    return null;
+            }
         }
     }
 }
