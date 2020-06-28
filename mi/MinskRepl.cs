@@ -1,27 +1,15 @@
-﻿using Minsk.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Minsk.CodeAnalysis;
 using Minsk.CodeAnalysis.Symbols;
 using Minsk.CodeAnalysis.Syntax;
 using Minsk.CodeAnalysis.Text;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Minsk
 {
     internal sealed class MinskRepl : Repl
     {
-        private class TextSpanComparer : IComparer<TextSpan>
-        {
-            public int Compare(TextSpan x, TextSpan y)
-            {
-                var value = x.Start - y.Start;
-                if (value == 0)
-                    value = x.Length - y.Length;
-
-                return value;
-            }
-        }
-
         private Compilation _previous;
         private bool _showTree;
         private bool _showProgram;
@@ -87,14 +75,16 @@ namespace Minsk
                 return true;
 
             var lastToLinesAreBlank = text.Split(Environment.NewLine)
-                                          .Reverse()
-                                          .TakeWhile((s) => string.IsNullOrEmpty(s))
-                                          .Take(2)
-                                          .Count() == 2;
+                                           .Reverse()
+                                           .TakeWhile((s) => string.IsNullOrEmpty(s))
+                                           .Take(2)
+                                           .Count() == 2;
             if (lastToLinesAreBlank)
                 return true;
 
             var syntaxTree = SyntaxTree.Parse(text);
+
+            // Use Members because we need to exclude the EndOfFileToken.
             if (syntaxTree.Root.Members.Last().GetLastToken().IsMissing)
                 return false;
 
@@ -106,8 +96,8 @@ namespace Minsk
             var syntaxTree = SyntaxTree.Parse(text);
 
             var compilation = _previous == null
-                ? new Compilation(syntaxTree)
-                : _previous.ContinueWith(syntaxTree);
+                                ? new Compilation(syntaxTree)
+                                : _previous.ContinueWith(syntaxTree);
 
             if (_showTree)
                 syntaxTree.Root.WriteTo(Console.Out);
