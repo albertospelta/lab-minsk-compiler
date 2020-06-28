@@ -2,7 +2,7 @@
 using System.CodeDom.Compiler;
 using System.IO;
 
-namespace Minsk.CodeAnalysis.IO
+namespace Minsk.IO
 {
     internal static class TextWriterExtensions
     {
@@ -19,13 +19,13 @@ namespace Minsk.CodeAnalysis.IO
 
         public static void SetForeground(this TextWriter writer, ConsoleColor color)
         {
-            if (writer == Console.Out)
+            if (writer.IsConsoleOut())
                 Console.ForegroundColor = color;
         }
 
         public static void ResetColor(this TextWriter writer)
         {
-            if (writer == Console.Out)
+            if (writer.IsConsoleOut())
                 Console.ResetColor();
         }
 

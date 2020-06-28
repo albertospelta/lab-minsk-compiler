@@ -1,10 +1,9 @@
-﻿using Minsk.CodeAnalysis.IO;
-using Minsk.CodeAnalysis.Symbols;
-using Minsk.CodeAnalysis.Syntax;
-using System;
+﻿using System;
 using System.CodeDom.Compiler;
 using System.IO;
-using System.Threading;
+using Minsk.CodeAnalysis.Symbols;
+using Minsk.CodeAnalysis.Syntax;
+using Minsk.IO;
 
 namespace Minsk.CodeAnalysis.Binding
 {
@@ -83,14 +82,14 @@ namespace Minsk.CodeAnalysis.Binding
 
         private static void WriteNestedStatement(this IndentedTextWriter writer, BoundStatement node)
         {
-            var needIntentation = !(node is BoundBlockStatement);
+            var needsIndentation = !(node is BoundBlockStatement);
 
-            if (needIntentation)
+            if (needsIndentation)
                 writer.Indent++;
 
             node.WriteTo(writer);
 
-            if (needIntentation)
+            if (needsIndentation)
                 writer.Indent--;
         }
 
@@ -106,14 +105,14 @@ namespace Minsk.CodeAnalysis.Binding
 
         private static void WriteNestedExpression(this IndentedTextWriter writer, int parentPrecedence, int currentPrecedence, BoundExpression expression)
         {
-            var needParenthesis = parentPrecedence >= currentPrecedence;
+            var needsParenthesis = parentPrecedence >= currentPrecedence;
 
-            if (needParenthesis)
+            if (needsParenthesis)
                 writer.WritePunctuation("(");
 
             expression.WriteTo(writer);
 
-            if (needParenthesis)
+            if (needsParenthesis)
                 writer.WritePunctuation(")");
         }
 
@@ -149,7 +148,7 @@ namespace Minsk.CodeAnalysis.Binding
 
             if (node.ElseStatement != null)
             {
-                writer.WriteKeyword("else ");
+                writer.WriteKeyword("else");
                 writer.WriteLine();
                 writer.WriteNestedStatement(node.ElseStatement);
             }
@@ -165,7 +164,7 @@ namespace Minsk.CodeAnalysis.Binding
 
         private static void WriteDoWhileStatement(BoundDoWhileStatement node, IndentedTextWriter writer)
         {
-            writer.WriteKeyword("do ");
+            writer.WriteKeyword("do");
             writer.WriteLine();
             writer.WriteNestedStatement(node.Body);
             writer.WriteKeyword("while ");
@@ -201,16 +200,16 @@ namespace Minsk.CodeAnalysis.Binding
 
         private static void WriteGotoStatement(BoundGotoStatement node, IndentedTextWriter writer)
         {
-            writer.WriteIdentifier("goto ");
+            writer.WriteKeyword("goto ");
             writer.WriteIdentifier(node.Label.Name);
             writer.WriteLine();
         }
 
         private static void WriteConditionalGotoStatement(BoundConditionalGotoStatement node, IndentedTextWriter writer)
         {
-            writer.WriteIdentifier("goto ");
+            writer.WriteKeyword("goto ");
             writer.WriteIdentifier(node.Label.Name);
-            writer.WriteIdentifier(node.JumpIfTrue ? " if " : " unless ");
+            writer.WriteKeyword(node.JumpIfTrue ? " if " : " unless ");
             node.Condition.WriteTo(writer);
             writer.WriteLine();
         }
