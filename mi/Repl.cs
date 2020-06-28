@@ -94,8 +94,8 @@ namespace Minsk
 
             private void UpdateCursorPosition()
             {
-                Console.CursorTop = _cursorTop + CurrentLine;
-                Console.CursorLeft = 2 + CurrentCharacter;
+                Console.CursorTop = _cursorTop + _currentLine;
+                Console.CursorLeft = 2 + _currentCharacter;
             }
 
             public int CurrentLine
@@ -210,8 +210,9 @@ namespace Minsk
 
         private void HandleEscape(ObservableCollection<string> document, SubmissionView view)
         {
-            document[view.CurrentLine] = string.Empty;
-            view.CurrentCharacter = 0;
+            document.Clear();
+            document.Add(string.Empty);
+            view.CurrentLine = 0;
         }
 
         private void HandleEnter(ObservableCollection<string> document, SubmissionView view)
