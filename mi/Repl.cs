@@ -213,6 +213,7 @@ namespace Minsk
             document.Clear();
             document.Add(string.Empty);
             view.CurrentLine = 0;
+            view.CurrentCharacter = 0;
         }
 
         private void HandleEnter(ObservableCollection<string> document, SubmissionView view)
