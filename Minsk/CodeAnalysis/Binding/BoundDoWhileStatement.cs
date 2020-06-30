@@ -1,8 +1,9 @@
 ﻿namespace Minsk.CodeAnalysis.Binding
 {
-    internal class BoundDoWhileStatement : BoundStatement
+    internal class BoundDoWhileStatement : BoundLoopStatement
     {
-        public BoundDoWhileStatement(BoundStatement body, BoundExpression condition)
+        public BoundDoWhileStatement(BoundStatement body, BoundExpression condition, BoundLabel breakLabel, BoundLabel continueLabel)
+            : base(breakLabel, continueLabel)
         {
             Body = body;
             Condition = condition;
