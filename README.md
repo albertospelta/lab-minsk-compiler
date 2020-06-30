@@ -80,4 +80,8 @@
 
 * Added support for explicit typing of variables and function declarations
 
+### 13. Declaring functions
+
+* Added pretty printing for bound nodes as well as `break` and `continue` statements
+
 ### [ ... ]
