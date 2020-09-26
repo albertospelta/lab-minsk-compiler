@@ -133,6 +133,7 @@ namespace Minsk.CodeAnalysis.Binding
         private static void WriteVariableDeclaration(BoundVariableDeclaration node, IndentedTextWriter writer)
         {
             writer.WriteKeyword(node.Variable.IsReadOnly ? SyntaxKind.LetKeyword : SyntaxKind.VarKeyword);
+            writer.WriteSpace();
             writer.WriteIdentifier(node.Variable.Name);
             writer.WriteSpace();
             writer.WritePunctuation(SyntaxKind.EqualsToken);
