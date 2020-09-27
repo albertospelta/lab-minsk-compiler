@@ -1,6 +1,7 @@
 ﻿using Minsk.CodeAnalysis.Symbols;
 using Minsk.CodeAnalysis.Syntax;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,11 +24,8 @@ namespace Minsk.CodeAnalysis.Binding
         }
 
         public BasicBlock Start { get; }
-
         public BasicBlock End { get; }
-
         public List<BasicBlock> Blocks { get; }
-
         public List<BasicBlockBranch> Branches { get; }
 
         public sealed class BasicBlock
@@ -57,9 +55,10 @@ namespace Minsk.CodeAnalysis.Binding
                     return "<End>";
 
                 using (var writer = new StringWriter())
+                using (var indentedWriter = new IndentedTextWriter(writer))
                 {
                     foreach (var statement in Statements)
-                        statement.WriteTo(writer);
+                        statement.WriteTo(indentedWriter);
 
                     return writer.ToString();
                 }
@@ -283,8 +282,8 @@ namespace Minsk.CodeAnalysis.Binding
             foreach (var block in Blocks)
             {
                 var id = blockIds[block];
-                var label = Quote(block.ToString().Replace(Environment.NewLine, "\\l"));
-                writer.WriteLine($"    { id } [label = { label } shape = box]");
+                var label = Quote(block.ToString());
+                writer.WriteLine($"    { id } [label = { label }, shape = box]");
             }
 
             foreach (var branch in Branches)
@@ -299,7 +298,7 @@ namespace Minsk.CodeAnalysis.Binding
 
             string Quote(string text)
             {
-                return "\"" + text.Replace("\"", "\\\"") + "\"";
+                return "\"" + text.TrimEnd().Replace("\\", "\\\\").Replace("\"", "\\\"").Replace(Environment.NewLine, "\\l") + "\"";
             }
         }
 
