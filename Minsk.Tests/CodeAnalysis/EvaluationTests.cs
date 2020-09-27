@@ -297,6 +297,22 @@ namespace Minsk.Test.CodeAnalysis
         }
 
         [Fact]
+        public void Evaluator_FunctionReturn_Missing()
+        {
+            var text = @"
+                function [add](a: int, b: int): int
+                {
+                }
+            ";
+
+            var diagnostics = @"
+                Not all code paths return a value.
+            ";
+
+            AssertDiagnostics(text, diagnostics);
+        }
+
+        [Fact]
         public void Evaluator_IfStatements_Reports_CannotConvert()
         {
             var text = @"
