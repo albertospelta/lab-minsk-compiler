@@ -7,6 +7,11 @@ using System.Linq;
 
 namespace Minsk.CodeAnalysis.Binding
 {
+    /// <summary>
+    /// Graph visualization is a way of representing structural information as diagrams of abstract graphs
+    /// https://graphviz.org/
+    /// https://marketplace.visualstudio.com/items?itemName=joaompinto.vscode-graphviz
+    /// </summary>
     internal sealed class ControlFlowGraph
     {
         private ControlFlowGraph(BasicBlock start, BasicBlock end, List<BasicBlock> blocks, List<BasicBlockBranch> branches)
@@ -18,8 +23,11 @@ namespace Minsk.CodeAnalysis.Binding
         }
 
         public BasicBlock Start { get; }
+
         public BasicBlock End { get; }
+
         public List<BasicBlock> Blocks { get; }
+
         public List<BasicBlockBranch> Branches { get; }
 
         public sealed class BasicBlock
