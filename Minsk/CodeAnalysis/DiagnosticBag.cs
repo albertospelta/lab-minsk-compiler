@@ -142,7 +142,7 @@ namespace Minsk.CodeAnalysis
 
         public void ReportInvalidReturn(TextSpan span)
         {
-            var message = "The 'return' keywork can only be used inside of a function.";
+            var message = "The 'return' keyword can only be used inside of functions.";
             Report(span, message);
         }
 
@@ -154,7 +154,7 @@ namespace Minsk.CodeAnalysis
 
         public void ReportMissingReturnExpression(TextSpan span, TypeSymbol returnType)
         {
-            var message = $"An expression of type'{ returnType }' expected.";
+            var message = $"An expression of type '{ returnType }' expected.";
             Report(span, message);
         }
     }
