@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-ant-test:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: .NET restore
+      run: dotnet restore
+
+    - name: .NET build
+      run: dotnet build --no-restore
+
+    - name: .NET test
+      run: dotnet test --no-build --verbosity normal
