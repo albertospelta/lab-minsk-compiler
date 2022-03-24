@@ -1,27 +1,36 @@
 name: CI
 
 on:
+  # push:
   pull_request:
+    branches: [ main ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
   workflow_dispatch:
 
-jobs:
-  build-ant-test:
+env:
+  DOTNET_VERSION: '6.0.*'
 
-    runs-on: windows-latest
+jobs:
+  build-and-test:
+    name: build-and-test-${{ matrix.os-version }}
+    runs-on: ${{ matrix.os-version }}
+    strategy:
+      matrix:
+        os-version: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.*
-
-    - name: .NET restore
-      run: dotnet restore
-
-    - name: .NET build
-      run: dotnet build --no-restore
-
-    - name: .NET test
-      run: dotnet test --no-build --verbosity normal
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Info
+        run: dotnet --info
+      - name: Restore
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal

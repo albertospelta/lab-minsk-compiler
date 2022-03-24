@@ -1,0 +1,77 @@
+name: 🐛 Bug Report
+labels: ["bug", "untriaged"]
+description: Let us know if something is expected to work, but doesn't.
+body:
+  - type: checkboxes
+    id: existing-issues
+    attributes:
+      label: Search existing issues
+      options:
+        - label:
+            I have searched the issue tracker and confirmed that I was unable to find existing issues for the problem I am experiencing.
+          required: true
+  - type: textarea
+    id: describe-problem
+    attributes:
+      label: Describe the problem
+      description:
+        Describe the issue you are experiencing with Minks. 
+        Provide a clear and concise description of what you were trying to do and what happened, along with any error messages you encountered.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Release version
+      description:
+        Open the 'About' menu item to see the Minsk version.
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Select the platform you are using
+      options:
+        - Windows
+        - Linux
+        - MacOS
+    validations:
+      required: true
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating system
+      description:
+        Enter the specific operating system version you are running (e.g. `Windows 11`, `Ubuntu Linux LTS`, `MacOS 12`)
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce the behavior
+      description: Provide steps to reproduce the problem you are experiencing.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description:
+        Add any other context about the problem you are experiencing here.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Add screenshots to help explain your problem, if applicable.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Anything else ?
+      description:
+        Links ? References ? Anything that will give us more context about the issue you are encountering.
+      placeholder:
+        You can attach log files by clicking this area to highlight it and then dragging the files in.
