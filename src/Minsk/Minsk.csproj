@@ -1,15 +1,40 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net461;netstandard2.0;net6.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <!-- version numbers will be updated by build -->
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionSuffix>beta1</VersionSuffix>
+    <Authors>Alberto Spelta</Authors>
+    <Product>Minsk Compiler</Product>
+    <Description>Building a compiler in C#</Description>
+    <Copyright>Copyright © 2022</Copyright>
+    <Summary>Building a compiler in C# uses many of the concepts that you can find in the Microsoft C# and Visual Basic compilers, code named Roslyn</Summary>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Title>Minsk</Title>
+    <PackageId>Minsk.Compiler</PackageId>
+    <PackageTags>c-sharp;compiler;dotenet</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/albertospelta/minsk/master/src/Minsk/Assets/minsk.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/albertospelta/minsk</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
 </Project>
