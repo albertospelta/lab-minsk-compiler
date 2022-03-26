@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Minsk.Compiler" Version="1.0.1-beta1" />
+    <ProjectReference Include="..\Minsk\Minsk.csproj" />
   </ItemGroup>
 
 </Project>

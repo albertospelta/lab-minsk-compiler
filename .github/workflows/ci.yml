@@ -1,36 +1,35 @@
 name: CI
-
 on:
-  # push:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+    branches:
+      - main
+#    paths:
+#    - '**.cs'
+#    - '**.csproj'
   workflow_dispatch:
-
 env:
-  DOTNET_VERSION: '6.0.*'
-
+    CONFIGURATION: 'Release'
 jobs:
   build-and-test:
-    name: build-and-test-${{ matrix.os-version }}
+    name: build-and-test--${{ matrix.os-version }}
     runs-on: ${{ matrix.os-version }}
     strategy:
       matrix:
-        os-version: [windows-latest, ubuntu-latest, macos-latest]
-
+        os-version: [windows-latest] #, ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET
+      - name: dotnet setup
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Info
+          dotnet-version: 6.0.x
+      - name: dotnet info
         run: dotnet --info
-      - name: Restore
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
+      - name: dotnet restore
+        run: dotnet restore ./src
+      - name: dotnet build
+        run: dotnet build ./src/Minsk.sln --no-restore
+      - name: dotnet test
+        run: dotnet test ./src/Minsk.Tests/Minsk.Tests.csproj --no-build --verbosity normal
