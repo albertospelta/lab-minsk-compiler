@@ -6,7 +6,7 @@ using Minsk.CodeAnalysis.Symbols;
 using Minsk.CodeAnalysis.Syntax;
 using Minsk.CodeAnalysis.Text;
 
-namespace Minsk
+namespace Minsk.Console
 {
     internal sealed class MinskRepl : Repl
     {
@@ -26,19 +26,19 @@ namespace Minsk
                 var isString = token.Kind == SyntaxKind.StringToken;
 
                 if (isKeyword)
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    System.Console.ForegroundColor = ConsoleColor.Blue;
                 else if (isIdentifier)
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    System.Console.ForegroundColor = ConsoleColor.DarkYellow;
                 else if (isNumber)
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    System.Console.ForegroundColor = ConsoleColor.Cyan;
                 else if (isString)
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    System.Console.ForegroundColor = ConsoleColor.Magenta;
                 else
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    System.Console.ForegroundColor = ConsoleColor.DarkGray;
 
-                Console.Write(token.Text);
+                System.Console.Write(token.Text);
 
-                Console.ResetColor();
+                System.Console.ResetColor();
             }
         }
 
@@ -49,15 +49,15 @@ namespace Minsk
                 case "#showTree":
                 case "#st":
                     _showTree = !_showTree;
-                    Console.WriteLine(_showTree ? "Showing parse trees." : "Not showing parse trees.");
+                    System.Console.WriteLine(_showTree ? "Showing parse trees." : "Not showing parse trees.");
                     break;
                 case "#showProgram":
                 case "#sp":
                     _showProgram = !_showProgram;
-                    Console.WriteLine(_showProgram ? "Showing bound tree." : "Not showing bound tree.");
+                    System.Console.WriteLine(_showProgram ? "Showing bound tree." : "Not showing bound tree.");
                     break;
                 case "#cls":
-                    Console.Clear();
+                    System.Console.Clear();
                     break;
                 case "#reset":
                     _previous = null;
@@ -74,7 +74,7 @@ namespace Minsk
             if (string.IsNullOrEmpty(text))
                 return true;
 
-            var lastToLinesAreBlank = text.Split(Environment.NewLine)
+            var lastToLinesAreBlank = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
                                            .Reverse()
                                            .TakeWhile((s) => string.IsNullOrEmpty(s))
                                            .Take(2)
@@ -100,10 +100,10 @@ namespace Minsk
                                 : _previous.ContinueWith(syntaxTree);
 
             if (_showTree)
-                syntaxTree.Root.WriteTo(Console.Out);
+                syntaxTree.Root.WriteTo(System.Console.Out);
 
             if (_showProgram)
-                compilation.EmitTree(Console.Out);
+                compilation.EmitTree(System.Console.Out);
 
             var result = compilation.Evaluate(_variables);
 
@@ -111,9 +111,9 @@ namespace Minsk
             {
                 if (result.Value != null)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(result.Value);
-                    Console.ResetColor();
+                    System.Console.ForegroundColor = ConsoleColor.White;
+                    System.Console.WriteLine(result.Value);
+                    System.Console.ResetColor();
                 }
                 _previous = compilation;
             }
@@ -126,11 +126,11 @@ namespace Minsk
                     var lineNumber = lineIndex + 1;
                     var character = diagnostic.Span.Start - line.Start + 1;
 
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Write($"({ lineNumber }, { character }): ");
-                    Console.WriteLine(diagnostic);
-                    Console.ResetColor();
+                    System.Console.WriteLine();
+                    System.Console.ForegroundColor = ConsoleColor.DarkRed;
+                    System.Console.Write($"({ lineNumber }, { character }): ");
+                    System.Console.WriteLine(diagnostic);
+                    System.Console.ResetColor();
 
                     var prefixSpan = TextSpan.FromBounds(line.Start, diagnostic.Span.Start);
                     var suffixSpan = TextSpan.FromBounds(diagnostic.Span.End, line.End);
@@ -139,18 +139,18 @@ namespace Minsk
                     var error = syntaxTree.Text.ToString(diagnostic.Span);
                     var suffix = syntaxTree.Text.ToString(suffixSpan);
 
-                    Console.Write("    ");
-                    Console.Write(prefix);
+                    System.Console.Write("    ");
+                    System.Console.Write(prefix);
 
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Write(error);
-                    Console.ResetColor();
+                    System.Console.ForegroundColor = ConsoleColor.DarkRed;
+                    System.Console.Write(error);
+                    System.Console.ResetColor();
 
-                    Console.Write(suffix);
-                    Console.WriteLine();
+                    System.Console.Write(suffix);
+                    System.Console.WriteLine();
                 }
 
-                Console.WriteLine();
+                System.Console.WriteLine();
             }
         }
     }

@@ -99,7 +99,7 @@ namespace Minsk.Test.CodeAnalysis
             while (lines.Count > 0 && lines[0].Length == 0)
                 lines.RemoveAt(0);
 
-            while (lines.Count > 0 && lines[^1].Length == 0)
+            while (lines.Count > 0 && lines[lines.Count - 1].Length == 0)
                 lines.RemoveAt(lines.Count - 1);
 
             return lines.ToArray();

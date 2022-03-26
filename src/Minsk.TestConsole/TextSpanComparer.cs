@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Minsk.CodeAnalysis.Text;
 
-namespace Minsk
+namespace Minsk.Console
 {
     internal class TextSpanComparer : IComparer<TextSpan>
     {

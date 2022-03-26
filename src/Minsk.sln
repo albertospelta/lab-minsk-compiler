@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minsk", "Minsk\Minsk.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minsk.Tests", "Minsk.Tests\Minsk.Tests.csproj", "{C40F032C-1615-4B2D-B35E-198FC65D5D1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minsk.TestConsole", "Minsk.TestConsole\Minsk.TestConsole.csproj", "{EB6FC4B2-5871-4FE2-8C20-F36A79E7D351}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minsk.Console", "Minsk.TestConsole\Minsk.Console.csproj", "{EB6FC4B2-5871-4FE2-8C20-F36A79E7D351}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98E94102-3E34-4F8D-B491-EE2E2F3B132E}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

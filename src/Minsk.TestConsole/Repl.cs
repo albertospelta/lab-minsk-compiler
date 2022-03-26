@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Text;
 
-namespace Minsk
+namespace Minsk.Console
 {
     internal abstract class Repl
     {
@@ -44,7 +44,7 @@ namespace Minsk
                 _lineRenderer = lineRenderer;
                 _submissionDocument = submissionDocument;
                 _submissionDocument.CollectionChanged += SubmissionDocumentChanged;
-                _cursorTop = Console.CursorTop;
+                _cursorTop = System.Console.CursorTop;
                 Render();
             }
 
@@ -55,47 +55,47 @@ namespace Minsk
 
             private void Render()
             {
-                Console.CursorVisible = false;
+                System.Console.CursorVisible = false;
 
                 var lineCount = 0;
 
                 foreach (var line in _submissionDocument)
                 {
-                    Console.SetCursorPosition(0, _cursorTop + lineCount);
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    System.Console.SetCursorPosition(0, _cursorTop + lineCount);
+                    System.Console.ForegroundColor = ConsoleColor.Green;
 
                     if (lineCount == 0)
-                        Console.Write("» ");
+                        System.Console.Write("» ");
                     else
-                        Console.Write("· ");
+                        System.Console.Write("· ");
 
-                    Console.ResetColor();
+                    System.Console.ResetColor();
                     _lineRenderer(line);
-                    Console.WriteLine(new string(' ', Console.WindowWidth - line.Length));
+                    System.Console.WriteLine(new string(' ', System.Console.WindowWidth - line.Length));
                     lineCount++;
                 }
 
                 var numberOfBlankLines = _renderedLineCount - lineCount;
                 if (numberOfBlankLines > 0)
                 {
-                    var blankLine = new string(' ', Console.WindowWidth);
+                    var blankLine = new string(' ', System.Console.WindowWidth);
                     for (var i = 0; i < numberOfBlankLines; i++)
                     {
-                        Console.SetCursorPosition(0, _cursorTop + lineCount + i);
-                        Console.WriteLine(blankLine);
+                        System.Console.SetCursorPosition(0, _cursorTop + lineCount + i);
+                        System.Console.WriteLine(blankLine);
                     }
                 }
 
                 _renderedLineCount = lineCount;
 
-                Console.CursorVisible = true;
+                System.Console.CursorVisible = true;
                 UpdateCursorPosition();
             }
 
             private void UpdateCursorPosition()
             {
-                Console.CursorTop = _cursorTop + _currentLine;
-                Console.CursorLeft = 2 + _currentCharacter;
+                System.Console.CursorTop = _cursorTop + _currentLine;
+                System.Console.CursorLeft = 2 + _currentCharacter;
             }
 
             public int CurrentLine
@@ -136,13 +136,13 @@ namespace Minsk
 
             while (!_done)
             {
-                var key = Console.ReadKey(intercept: true);
+                var key = System.Console.ReadKey(intercept: true);
                 HandleKey(key, document, view);
             }
 
             view.CurrentLine = document.Count - 1;
             view.CurrentCharacter = document[view.CurrentLine].Length;
-            Console.WriteLine();
+            System.Console.WriteLine();
 
             return string.Join(Environment.NewLine, document);
         }
@@ -360,7 +360,7 @@ namespace Minsk
             document.Clear();
 
             var historyItem = _submissionHistory[_submissionHistoryIndex];
-            var lines = historyItem.Split(Environment.NewLine);
+            var lines = historyItem.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             foreach (var line in lines)
                 document.Add(line);
 
@@ -383,14 +383,14 @@ namespace Minsk
 
         protected virtual void RenderLine(string line)
         {
-            Console.Write(line);
+            System.Console.Write(line);
         }
 
         protected virtual void EvaluateMetaCommand(string input)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Invalid command { input }.");
-            Console.ResetColor();
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine($"Invalid command { input }.");
+            System.Console.ResetColor();
         }
 
         protected abstract bool IsCompleteSubmission(string text);
