@@ -56,7 +56,7 @@ namespace Minsk.CodeAnalysis
 
             var program = Binder.BindProgram(GlobalScope);
 
-            var appPath = Environment.GetCommandLineArgs()[0];
+            var appPath = Environment.CurrentDirectory; // Environment.GetCommandLineArgs()[0];
             var appDirectory = Path.GetDirectoryName(appPath);
             var cfgPath = Path.Combine(appDirectory, "cfg.dot");
             var cfgStatement = !program.Statement.Statements.Any() && program.Functions.Any()
