@@ -11,15 +11,16 @@ namespace Minsk.CodeAnalysis.Binding
 {
     internal sealed class Binder
     {
+        private readonly Stack<(BoundLabel BreakLabel, BoundLabel ContinueLabel)> _loopStack;
         private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
-        private readonly FunctionSymbol _function;
+        private readonly FunctionSymbol? _function;
 
-        private Stack<(BoundLabel BreakLabel, BoundLabel ContinueLabel)> _loopStack = new Stack<(BoundLabel BreakLabel, BoundLabel ContinueLabel)>();
         private int _labelCounter;
-        private BoundScope _scope;
+        private BoundScope? _scope;
 
-        public Binder(BoundScope parent, FunctionSymbol function)
+        public Binder(BoundScope parent, FunctionSymbol? function = null)
         {
+            _loopStack = new Stack<(BoundLabel BreakLabel, BoundLabel ContinueLabel)>();
             _scope = new BoundScope(parent);
             _function = function;
 
@@ -30,10 +31,10 @@ namespace Minsk.CodeAnalysis.Binding
             }
         }
 
-        public static BoundGlobalScope BindGlobalScope(BoundGlobalScope previous, CompilationUnitSyntax syntax)
+        public static BoundGlobalScope BindGlobalScope(BoundGlobalScope? previous, CompilationUnitSyntax syntax)
         {
             var parentScope = CreateParentScope(previous);
-            var binder = new Binder(parentScope, function: null);
+            var binder = new Binder(parentScope);
 
             foreach (var function in syntax.Members.OfType<FunctionDeclarationSyntax>())
                 binder.BindFunctionDeclaration(function);
@@ -115,7 +116,7 @@ namespace Minsk.CodeAnalysis.Binding
                 _diagnostics.ReportSymbolAlreadyDeclared(syntax.Identifier.Span, function.Name);
         }
 
-        private static BoundScope CreateParentScope(BoundGlobalScope previous)
+        private static BoundScope CreateParentScope(BoundGlobalScope? previous)
         {
             var stack = new Stack<BoundGlobalScope>();
             while (previous != null)
@@ -217,7 +218,7 @@ namespace Minsk.CodeAnalysis.Binding
             return new BoundVariableDeclaration(variable, convertedInitializer);
         }
 
-        private TypeSymbol BindTypeClause(TypeClauseSyntax syntax)
+        private TypeSymbol? BindTypeClause(TypeClauseSyntax syntax)
         {
             if (syntax == null)
                 return null;
@@ -566,9 +567,9 @@ namespace Minsk.CodeAnalysis.Binding
             return variable;
         }
 
-        private VariableSymbol BindVariableReference(string name, TextSpan span)
+        private VariableSymbol? BindVariableReference(string name, TextSpan span)
         {
-            switch (_scope.TryLookupSymbol(name))
+            switch (_scope?.TryLookupSymbol(name))
             {
                 case VariableSymbol variable:
                     return variable;
@@ -581,7 +582,7 @@ namespace Minsk.CodeAnalysis.Binding
             }
         }
 
-        private TypeSymbol LookupType(string name)
+        private TypeSymbol? LookupType(string name)
         {
             switch (name)
             {

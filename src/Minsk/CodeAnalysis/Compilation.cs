@@ -13,20 +13,20 @@ namespace Minsk.CodeAnalysis
 {
     public sealed class Compilation
     {
-        private BoundGlobalScope _globalScope;
+        private BoundGlobalScope? _globalScope;
 
         public Compilation(SyntaxTree syntaxTree)
             : this(null, syntaxTree)
         {
         }
 
-        private Compilation(Compilation previous, SyntaxTree syntaxTree)
+        private Compilation(Compilation? previous, SyntaxTree syntaxTree)
         {
             Previous = previous;
             SyntaxTree = syntaxTree;
         }
 
-        public Compilation Previous { get; }
+        public Compilation? Previous { get; }
         public SyntaxTree SyntaxTree { get; }
 
         internal BoundGlobalScope GlobalScope

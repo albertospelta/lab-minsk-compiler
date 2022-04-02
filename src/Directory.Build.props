@@ -1,6 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)/artifacts</PackageOutputPath>
-  </PropertyGroup>
-</Project>

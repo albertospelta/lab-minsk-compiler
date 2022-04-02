@@ -35,28 +35,28 @@ namespace Minsk.IO
             writer.WriteKeyword(SyntaxFacts.GetText(kind));
         }
 
-        public static void WriteKeyword(this TextWriter writer, string text)
+        public static void WriteKeyword(this TextWriter writer, string? text)
         {
             writer.SetForeground(ConsoleColor.Blue);
             writer.Write(text);
             writer.ResetColor();
         }
 
-        public static void WriteIdentifier(this TextWriter writer, string text)
+        public static void WriteIdentifier(this TextWriter writer, string? text)
         {
             writer.SetForeground(ConsoleColor.DarkYellow);
             writer.Write(text);
             writer.ResetColor();
         }
 
-        public static void WriteNumber(this TextWriter writer, string text)
+        public static void WriteNumber(this TextWriter writer, string? text)
         {
             writer.SetForeground(ConsoleColor.Cyan);
             writer.Write(text);
             writer.ResetColor();
         }
 
-        public static void WriteString(this TextWriter writer, string text)
+        public static void WriteString(this TextWriter writer, string? text)
         {
             writer.SetForeground(ConsoleColor.Magenta);
             writer.Write(text);
@@ -73,7 +73,7 @@ namespace Minsk.IO
             writer.WritePunctuation(SyntaxFacts.GetText(kind));
         }
 
-        public static void WritePunctuation(this TextWriter writer, string text)
+        public static void WritePunctuation(this TextWriter writer, string? text)
         {
             writer.SetForeground(ConsoleColor.DarkGray);
             writer.Write(text);

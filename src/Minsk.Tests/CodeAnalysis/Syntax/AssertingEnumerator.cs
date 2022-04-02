@@ -59,7 +59,7 @@ namespace Minsk.Test.CodeAnalysis.Syntax
             }
         }
 
-        public void AssertToken(SyntaxKind kind, string text)
+        public void AssertToken(SyntaxKind kind, string? text)
         {
             try
             {

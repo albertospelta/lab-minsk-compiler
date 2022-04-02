@@ -24,7 +24,7 @@ namespace Minsk.CodeAnalysis.Binding
         public TypeSymbol OperandType { get; }
         public TypeSymbol ResultType { get; }
 
-        private static BoundUnaryOperator[] _operators =
+        private readonly static BoundUnaryOperator[] _operators =
         {
             new BoundUnaryOperator(SyntaxKind.PlusToken, BoundUnaryOperatorKind.Identity, TypeSymbol.Int),
             new BoundUnaryOperator(SyntaxKind.MinusToken, BoundUnaryOperatorKind.Negation, TypeSymbol.Int),
@@ -33,7 +33,7 @@ namespace Minsk.CodeAnalysis.Binding
             new BoundUnaryOperator(SyntaxKind.BangToken, BoundUnaryOperatorKind.LogicalNegation, TypeSymbol.Bool),
         };
 
-        public static BoundUnaryOperator Bind(SyntaxKind syntaxKind, TypeSymbol operandType)
+        public static BoundUnaryOperator? Bind(SyntaxKind syntaxKind, TypeSymbol operandType)
         {
             foreach (var op in _operators)
             {

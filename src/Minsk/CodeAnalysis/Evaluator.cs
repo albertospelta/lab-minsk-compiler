@@ -2,7 +2,6 @@
 using Minsk.CodeAnalysis.Symbols;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 
 namespace Minsk.CodeAnalysis
 {
@@ -11,9 +10,9 @@ namespace Minsk.CodeAnalysis
         private readonly BoundProgram _program;
         private readonly Dictionary<VariableSymbol, object> _globals;
         private readonly Stack<Dictionary<VariableSymbol, object>> _locals = new Stack<Dictionary<VariableSymbol, object>>();
-        private Random _random;
+        private Random? _random;
 
-        private object _lastValue;
+        private object? _lastValue;
 
         public Evaluator(BoundProgram program, Dictionary<VariableSymbol, object> variables)
         {
@@ -27,7 +26,7 @@ namespace Minsk.CodeAnalysis
             return EvaluateStatement(_program.Statement);
         }
 
-        private object EvaluateStatement(BoundBlockStatement body)
+        private object? EvaluateStatement(BoundBlockStatement body)
         {
             var labelToIndex = new Dictionary<BoundLabel, int>();
 
@@ -213,7 +212,7 @@ namespace Minsk.CodeAnalysis
             }
         }
 
-        private object EvaluateCallExpression(BoundCallExpression node)
+        private object? EvaluateCallExpression(BoundCallExpression node)
         {
             if (node.Function == BuiltinFunctions.Input)
             {

@@ -218,7 +218,7 @@ namespace Minsk.CodeAnalysis.Syntax
             return new VariableDeclarationSyntax(keyword, identifier, typeClause, equals, initializer);
         }
 
-        private TypeClauseSyntax ParseOptionalTypeClause()
+        private TypeClauseSyntax? ParseOptionalTypeClause()
         {
             if (Current.Kind != SyntaxKind.ColonToken)
                 return null;
@@ -242,7 +242,7 @@ namespace Minsk.CodeAnalysis.Syntax
             return new IfStatementSyntax(keyword, condition, statement, elseClause);
         }
 
-        private ElseClauseSyntax ParseElseClause()
+        private ElseClauseSyntax? ParseElseClause()
         {
             if (Current.Kind != SyntaxKind.ElseKeyword)
                 return null;

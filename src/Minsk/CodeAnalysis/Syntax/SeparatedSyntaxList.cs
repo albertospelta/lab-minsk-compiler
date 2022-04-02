@@ -23,7 +23,7 @@ namespace Minsk.CodeAnalysis.Syntax
 
         public T this[int index] => (T)_nodesAndSeparators[index * 2];
 
-        public SyntaxToken GetSeparator(int index)
+        public SyntaxToken? GetSeparator(int index)
         {
             if (index == Count - 1)
                 return null;

@@ -222,7 +222,7 @@ namespace Minsk.CodeAnalysis.Binding
 
         protected virtual BoundExpression RewriteCallExpression(BoundCallExpression node)
         {
-            ImmutableArray<BoundExpression>.Builder builder = null;
+            ImmutableArray<BoundExpression>.Builder? builder = null;
 
             for (var i = 0; i < node.Arguments.Length; i++)
             {

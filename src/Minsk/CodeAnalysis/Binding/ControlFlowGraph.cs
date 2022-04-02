@@ -67,7 +67,7 @@ namespace Minsk.CodeAnalysis.Binding
 
         public sealed class BasicBlockBranch
         {
-            public BasicBlockBranch(BasicBlock from, BasicBlock to, BoundExpression condition)
+            public BasicBlockBranch(BasicBlock from, BasicBlock to, BoundExpression? condition)
             {
                 From = from;
                 To = to;
@@ -76,7 +76,7 @@ namespace Minsk.CodeAnalysis.Binding
 
             public BasicBlock From { get; }
             public BasicBlock To { get; }
-            public BoundExpression Condition { get; }
+            public BoundExpression? Condition { get; }
 
             public override string ToString()
             {
@@ -89,8 +89,8 @@ namespace Minsk.CodeAnalysis.Binding
 
         public sealed class BasicBlockBuilder
         {
-            private List<BoundStatement> _statements = new List<BoundStatement>();
-            private List<BasicBlock> _blocks = new List<BasicBlock>();
+            private readonly List<BoundStatement> _statements = new List<BoundStatement>();
+            private readonly List<BasicBlock> _blocks = new List<BasicBlock>();
 
             public List<BasicBlock> Build(BoundBlockStatement block)
             {
@@ -141,11 +141,11 @@ namespace Minsk.CodeAnalysis.Binding
 
         public sealed class GraphBuilder
         {
-            private Dictionary<BoundStatement, BasicBlock> _blockFromStatement = new Dictionary<BoundStatement, BasicBlock>();
-            private Dictionary<BoundLabel, BasicBlock> _blockFromLabel = new Dictionary<BoundLabel, BasicBlock>();
-            private List<BasicBlockBranch> _branches = new List<BasicBlockBranch>();
-            BasicBlock _start = new BasicBlock(isStart: true);
-            BasicBlock _end = new BasicBlock(isStart: false);
+            private readonly Dictionary<BoundStatement, BasicBlock> _blockFromStatement = new Dictionary<BoundStatement, BasicBlock>();
+            private readonly Dictionary<BoundLabel, BasicBlock> _blockFromLabel = new Dictionary<BoundLabel, BasicBlock>();
+            private readonly List<BasicBlockBranch> _branches = new List<BasicBlockBranch>();
+            private readonly BasicBlock _start = new BasicBlock(isStart: true);
+            private readonly BasicBlock _end = new BasicBlock(isStart: false);
 
             public ControlFlowGraph Build(List<BasicBlock> blocks)
             {
@@ -220,7 +220,7 @@ namespace Minsk.CodeAnalysis.Binding
                 return new ControlFlowGraph(_start, _end, blocks, _branches);
             }
 
-            private void Connect(BasicBlock from, BasicBlock to, BoundExpression condition = null)
+            private void Connect(BasicBlock from, BasicBlock to, BoundExpression? condition = null)
             {
                 if (condition is BoundLiteralExpression literal)
                 {
