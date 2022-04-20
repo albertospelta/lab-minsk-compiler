@@ -26,7 +26,7 @@ namespace Minsk.CodeAnalysis.Text
 
             while (lower <= upper)
             {
-                var index = lower + (upper - lower) / 2;
+                var index = lower + ((upper - lower) / 2);
                 var start = Lines[index].Start;
 
                 if (start == position)

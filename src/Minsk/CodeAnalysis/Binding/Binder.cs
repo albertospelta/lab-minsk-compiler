@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using Minsk.CodeAnalysis.Lowering;
+﻿using Minsk.CodeAnalysis.Lowering;
 using Minsk.CodeAnalysis.Symbols;
 using Minsk.CodeAnalysis.Syntax;
 using Minsk.CodeAnalysis.Text;
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Minsk.CodeAnalysis.Binding
 {
@@ -111,7 +110,7 @@ namespace Minsk.CodeAnalysis.Binding
             }
 
             var type = BindTypeClause(syntax.Type) ?? TypeSymbol.Void;
-            var function = new FunctionSymbol(syntax.Identifier.Text, parameters.ToImmutable(), type, syntax);            
+            var function = new FunctionSymbol(syntax.Identifier.Text, parameters.ToImmutable(), type, syntax);
             if (function.Declaration.Identifier.Text != null && !_scope.TryDeclareFunction(function))
                 _diagnostics.ReportSymbolAlreadyDeclared(syntax.Identifier.Span, function.Name);
         }
@@ -156,7 +155,7 @@ namespace Minsk.CodeAnalysis.Binding
 
         public DiagnosticBag Diagnostics => _diagnostics;
 
-        private BoundStatement BindErrorStatement()
+        private static BoundStatement BindErrorStatement()
         {
             return new BoundExpressionStatement(new BoundErrorExpression());
         }
@@ -382,7 +381,7 @@ namespace Minsk.CodeAnalysis.Binding
             return BindExpression(syntax.Expression);
         }
 
-        private BoundExpression BindLiteralExpression(LiteralExpressionSyntax syntax)
+        private static BoundExpression BindLiteralExpression(LiteralExpressionSyntax syntax)
         {
             var value = syntax.Value ?? 0;
             return new BoundLiteralExpression(value);
@@ -468,7 +467,7 @@ namespace Minsk.CodeAnalysis.Binding
                 boundArguments.Add(boundArgument);
             }
 
-            var symbol = _scope.TryLookupSymbol(syntax.Identifier.Text);
+            var symbol = _scope?.TryLookupSymbol(syntax.Identifier.Text);
             if (symbol == null)
             {
                 _diagnostics.ReportUndefinedFunction(syntax.Identifier.Span, syntax.Identifier.Text);
@@ -487,7 +486,7 @@ namespace Minsk.CodeAnalysis.Binding
                 TextSpan span;
                 if (syntax.Arguments.Count > function.Parameters.Length)
                 {
-                    SyntaxNode firstExceedingNode;
+                    SyntaxNode? firstExceedingNode;
                     if (function.Parameters.Length > 0)
                         firstExceedingNode = syntax.Arguments.GetSeparator(function.Parameters.Length - 1);
                     else
@@ -504,7 +503,7 @@ namespace Minsk.CodeAnalysis.Binding
                 return new BoundErrorExpression();
             }
 
-            bool hasErrors = false;
+            var hasErrors = false;
 
             for (var i = 0; i < syntax.Arguments.Count; i++)
             {
@@ -582,7 +581,7 @@ namespace Minsk.CodeAnalysis.Binding
             }
         }
 
-        private TypeSymbol? LookupType(string name)
+        private static TypeSymbol? LookupType(string? name)
         {
             switch (name)
             {

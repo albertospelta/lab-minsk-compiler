@@ -148,7 +148,7 @@ namespace Minsk.Console
 
         private void HandleKey(ConsoleKeyInfo key, ObservableCollection<string> document, SubmissionView view)
         {
-            if (key.Modifiers == default(ConsoleModifiers))
+            if (key.Modifiers == ConsoleModifiers.Alt)
             {
                 switch (key.Key)
                 {
@@ -329,7 +329,7 @@ namespace Minsk.Console
         {
             const int TabWidth = 4;
             var start = view.CurrentCharacter;
-            var remainingSpaces = TabWidth - start % TabWidth;
+            var remainingSpaces = TabWidth - (start % TabWidth);
             var line = document[view.CurrentLine];
             document[view.CurrentLine] = line.Insert(start, new string(' ', remainingSpaces));
             view.CurrentCharacter += remainingSpaces;

@@ -85,7 +85,7 @@ namespace Minsk.CodeAnalysis.Binding
 
         private static void WriteNestedStatement(this IndentedTextWriter writer, BoundStatement node)
         {
-            var needsIndentation = !(node is BoundBlockStatement);
+            var needsIndentation = node is not BoundBlockStatement;
 
             if (needsIndentation)
                 writer.Indent++;
@@ -268,7 +268,7 @@ namespace Minsk.CodeAnalysis.Binding
             }
             else if (node.Type == TypeSymbol.String)
             {
-                value = "\"" + value.Replace("\"", "\"\"") + "\"";
+                value = "\"" + value?.Replace("\"", "\"\"") + "\"";
                 writer.WriteString(value);
             }
             else
@@ -293,7 +293,7 @@ namespace Minsk.CodeAnalysis.Binding
 
         private static void WriteUnaryExpression(BoundUnaryExpression node, IndentedTextWriter writer)
         {
-            var @operator = SyntaxFacts.GetText(node.Operator.SyntaxKind);
+            _ = SyntaxFacts.GetText(node.Operator.SyntaxKind);
             var precedence = SyntaxFacts.GetUnaryOperatorPrecedence(node.Operator.SyntaxKind);
 
             writer.WritePunctuation(node.Operator.SyntaxKind);

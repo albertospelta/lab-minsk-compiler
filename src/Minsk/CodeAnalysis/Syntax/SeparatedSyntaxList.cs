@@ -28,7 +28,7 @@ namespace Minsk.CodeAnalysis.Syntax
             if (index == Count - 1)
                 return null;
 
-            return (SyntaxToken)_nodesAndSeparators[index * 2 + 1];
+            return (SyntaxToken)_nodesAndSeparators[(index * 2) + 1];
         }
 
         public override ImmutableArray<SyntaxNode> GetWithSeparators() => _nodesAndSeparators;

@@ -183,7 +183,7 @@ namespace Minsk.CodeAnalysis.Binding
                                 var cgs = (BoundConditionalGotoStatement)statement;
                                 var thenBlock = _blockFromLabel[cgs.Label];
                                 var elseBlock = next;
-                                var negatedCondition = Negate(cgs.Condition);
+                                var negatedCondition = GraphBuilder.Negate(cgs.Condition);
                                 var thenCondition = cgs.JumpIfTrue ? cgs.Condition : negatedCondition;
                                 var elseCondition = cgs.JumpIfTrue ? negatedCondition : cgs.Condition;
                                 Connect(current, thenBlock, thenCondition);
@@ -254,7 +254,7 @@ namespace Minsk.CodeAnalysis.Binding
                 blocks.Remove(block);
             }
 
-            private BoundExpression Negate(BoundExpression condition)
+            private static BoundExpression Negate(BoundExpression condition)
             {
                 if (condition is BoundLiteralExpression literal)
                 {
@@ -273,7 +273,7 @@ namespace Minsk.CodeAnalysis.Binding
 
             var blockIds = new Dictionary<BasicBlock, string>();
 
-            for (int i = 0; i < Blocks.Count; i++)
+            for (var i = 0; i < Blocks.Count; i++)
             {
                 var id = $"N{ i }";
                 blockIds.Add(Blocks[i], id);
@@ -296,7 +296,7 @@ namespace Minsk.CodeAnalysis.Binding
 
             writer.WriteLine("}");
 
-            string Quote(string text)
+            static string Quote(string text)
             {
                 return "\"" + text.TrimEnd().Replace("\\", "\\\\").Replace("\"", "\\\"").Replace(Environment.NewLine, "\\l") + "\"";
             }

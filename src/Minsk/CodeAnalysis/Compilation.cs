@@ -67,7 +67,7 @@ namespace Minsk.CodeAnalysis
                 cfg.WriteTo(writer);
 
             if (program.Diagnostics.Any())
-                return new EvaluationResult(program.Diagnostics.ToImmutableArray(), null);
+                return new EvaluationResult(program.Diagnostics, null);
 
             var evaluator = new Evaluator(program, variables);
             var value = evaluator.Evaluate();
@@ -93,7 +93,6 @@ namespace Minsk.CodeAnalysis
                     functionBody.Value.WriteTo(writer);
                 }
             }
-
         }
     }
 }

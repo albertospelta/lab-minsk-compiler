@@ -56,7 +56,7 @@ namespace Minsk.CodeAnalysis
             Report(span, message);
         }
 
-        public void ReportUndefinedBinaryOperator(TextSpan span, string operatorText, TypeSymbol leftType, TypeSymbol rightType)
+        public void ReportUndefinedBinaryOperator(TextSpan span, string? operatorText, TypeSymbol leftType, TypeSymbol rightType)
         {
             var message = $"Binary operator '{ operatorText }' is not defined for types '{ leftType }' and '{ rightType }'.";
             Report(span, message);
@@ -80,13 +80,13 @@ namespace Minsk.CodeAnalysis
             Report(span, message);
         }
 
-        public void ReportUndefinedType(TextSpan span, string name)
+        public void ReportUndefinedType(TextSpan span, string? name)
         {
             var message = $"Type '{ name }' doesn't exist.";
             Report(span, message);
         }
 
-        public void ReportNotAFunction(TextSpan span, string name)
+        public void ReportNotAFunction(TextSpan span, string? name)
         {
             var message = $"'{name}' is not a function.";
             Report(span, message);
@@ -116,7 +116,7 @@ namespace Minsk.CodeAnalysis
             Report(span, message);
         }
 
-        public void ReportUndefinedFunction(TextSpan span, string name)
+        public void ReportUndefinedFunction(TextSpan span, string? name)
         {
             var message = $"Function '{ name }' doesn't exist.";
             Report(span, message);
@@ -140,7 +140,7 @@ namespace Minsk.CodeAnalysis
             Report(span, message);
         }
 
-        public void ReportInvalidBreakContinue(TextSpan span, string text)
+        public void ReportInvalidBreakContinue(TextSpan span, string? text)
         {
             var message = $"The keyword '{ text }' can only be used inside of loops.";
             Report(span, message);

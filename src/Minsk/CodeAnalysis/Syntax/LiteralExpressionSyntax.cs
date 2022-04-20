@@ -9,7 +9,7 @@ namespace Minsk.CodeAnalysis.Syntax
         {
         }
 
-        public LiteralExpressionSyntax(SyntaxToken literalToken, object value)
+        public LiteralExpressionSyntax(SyntaxToken literalToken, object? value)
         {
             LiteralToken = literalToken;
             Value = value;
@@ -17,6 +17,6 @@ namespace Minsk.CodeAnalysis.Syntax
 
         public override SyntaxKind Kind => SyntaxKind.LiteralExpression;
         public SyntaxToken LiteralToken { get; }
-        public object Value { get; }
+        public object? Value { get; }
     }
 }

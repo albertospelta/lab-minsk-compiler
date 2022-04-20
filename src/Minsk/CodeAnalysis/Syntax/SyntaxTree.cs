@@ -53,7 +53,7 @@ namespace Minsk.CodeAnalysis.Syntax
 
         public static ImmutableArray<SyntaxToken> ParseTokens(SourceText text, out ImmutableArray<Diagnostic> diagnostics)
         {
-            IEnumerable<SyntaxToken> LexTokens(Lexer lexer)
+            static IEnumerable<SyntaxToken> LexTokens(Lexer lexer)
             {
                 while (true)
                 {

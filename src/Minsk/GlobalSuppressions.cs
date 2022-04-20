@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "<Pending>", Scope = "member", Target = "~M:Minsk.CodeAnalysis.Binding.BoundTreeRewriter.RewriteCallExpression(Minsk.CodeAnalysis.Binding.BoundCallExpression)~Minsk.CodeAnalysis.Binding.BoundExpression")]
+[assembly: SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "<Pending>", Scope = "member", Target = "~M:Minsk.CodeAnalysis.Binding.Binder.BindNameExpression(Minsk.CodeAnalysis.Syntax.NameExpressionSyntax)~Minsk.CodeAnalysis.Binding.BoundExpression")]

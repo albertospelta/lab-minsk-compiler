@@ -625,7 +625,7 @@ namespace Minsk.Test.CodeAnalysis
             Assert.Equal(expectedValue, result.Value);
         }
 
-        private void AssertDiagnostics(string text, string diagnosticText)
+        private static void AssertDiagnostics(string text, string diagnosticText)
         {
             var annotatedText = AnnotatedText.Parse(text);
             var syntaxTree = SyntaxTree.Parse(annotatedText.Text);

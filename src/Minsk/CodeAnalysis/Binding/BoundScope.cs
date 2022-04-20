@@ -7,7 +7,7 @@ namespace Minsk.CodeAnalysis.Binding
 {
     internal sealed class BoundScope
     {
-        private Dictionary<string, Symbol> _symbols;
+        private Dictionary<string, Symbol>? _symbols;
 
         public BoundScope(BoundScope? parent)
         {
@@ -32,8 +32,11 @@ namespace Minsk.CodeAnalysis.Binding
             return true;
         }
 
-        public Symbol? TryLookupSymbol(string name)
+        public Symbol? TryLookupSymbol(string? name)
         {
+            if (name == null)
+                return null;
+
             if (_symbols != null && _symbols.TryGetValue(name, out var symbol))
                 return symbol;
 

@@ -47,6 +47,7 @@
     <None Include="..\..\LICENSE.md" Pack="true" PackagePath="\" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\..\package-icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>

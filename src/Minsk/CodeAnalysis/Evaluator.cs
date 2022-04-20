@@ -21,7 +21,7 @@ namespace Minsk.CodeAnalysis
             _locals.Push(new Dictionary<VariableSymbol, object>());
         }
 
-        public object Evaluate()
+        public object? Evaluate()
         {
             return EvaluateStatement(_program.Statement);
         }

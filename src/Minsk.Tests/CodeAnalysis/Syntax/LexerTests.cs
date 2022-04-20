@@ -114,7 +114,7 @@ namespace Minsk.Test.CodeAnalysis.Syntax
 
         public static IEnumerable<(SyntaxKind kind, string text)> GetTokens()
         {
-            var fixedTokens = Enum.GetValues(typeof(SyntaxKind))
+            var fixedTokens = (IEnumerable<(SyntaxKind kind, string text)>)Enum.GetValues(typeof(SyntaxKind))
                 .Cast<SyntaxKind>()
                 .Select((k) => (kind: k, text: SyntaxFacts.GetText(k)))
                 .Where((t) => t.text != null);
