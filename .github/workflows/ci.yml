@@ -28,10 +28,10 @@ jobs:
       - name: .NET info
         run: dotnet --info
       - name: .NET restore
-        run: dotnet restore ./src
+        run: dotnet restore './src'
       - name: .NET build
-        run: dotnet build ./src/Minsk.sln --configuration ${{ env.CONFIGURATION }} --no-restore
+        run: dotnet build './src/Minsk.sln' --configuration ${{ env.CONFIGURATION }} --no-restore
       - name: .NET test
-        run: dotnet test ./src/Minsk.Tests/Minsk.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal
+        run: dotnet test './src/Minsk.Tests/Minsk.Tests.csproj' --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal
       - name: .NET pack
-        run: dotnet pack ./src/Minsk/Minsk.csproj --configuration ${{ env.CONFIGURATION }} --no-build --no-restore --verbosity normal
+        run: dotnet pack './src/Minsk/Minsk.csproj' --configuration ${{ env.CONFIGURATION }} --no-build --no-restore --verbosity normal
