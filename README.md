@@ -1,6 +1,6 @@
 # Minsk [http://minsk-compiler.net]
 
-[![Build Status](https://dev.azure.com/albertospelta/Minsk/_apis/build/status/albertospelta.minsk?branchName=master)](https://dev.azure.com/albertospelta/Minsk/_build/latest?definitionId=8&branchName=master)
+[![CI](https://github.com/albertospelta/minsk/actions/workflows/ci.yml/badge.svg)](https://github.com/albertospelta/minsk/actions/workflows/ci.yml) [![CodeQL](https://github.com/albertospelta/minsk/actions/workflows/codeql.yml/badge.svg)](https://github.com/albertospelta/minsk/actions/workflows/codeql.yml)
 
 > Building a compiler
 
