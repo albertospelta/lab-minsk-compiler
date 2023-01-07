@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Minsk.CodeAnalysis.Text;
-
-namespace Minsk.Console
+﻿namespace ReplConsole
 {
+    using System.Collections.Generic;
+    using Minsk.CodeAnalysis.Text;
+
     internal class TextSpanComparer : IComparer<TextSpan>
     {
         public int Compare(TextSpan x, TextSpan y)

@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Minsk\Minsk.csproj" />
+    <ProjectReference Include="..\..\src\Minsk\Minsk.csproj" />
   </ItemGroup>
 
 </Project>

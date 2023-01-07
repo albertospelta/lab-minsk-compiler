@@ -2,13 +2,16 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
+    paths:
+      - 'src/**'
+      - 'tests/**'
   pull_request:
     branches:
-      - master
-#   paths:
-#   - '**.cs'
-#   - '**.csproj'
+      - main
+    paths:
+      - 'src/**'
+      - 'tests/**'
   workflow_dispatch:
 env:
   CONFIGURATION: 'Release'
@@ -24,14 +27,14 @@ jobs:
       - name: .NET setup
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          global-json-file: global.json
       - name: .NET info
         run: dotnet --info
       - name: .NET restore
-        run: dotnet restore './src'
+        run: dotnet restore Minsk.Compiler.slnf
       - name: .NET build
-        run: dotnet build './src/Minsk.sln' --configuration ${{ env.CONFIGURATION }} --no-restore
+        run: dotnet build Minsk.Compiler.slnf --configuration ${{ env.CONFIGURATION }} --no-restore
       - name: .NET test
-        run: dotnet test './src/Minsk.Tests/Minsk.Tests.csproj' --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal
+        run: dotnet test Minsk.Compiler.slnf --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal
       - name: .NET pack
-        run: dotnet pack './src/Minsk/Minsk.csproj' --configuration ${{ env.CONFIGURATION }} --no-build --no-restore --verbosity normal
+        run: dotnet pack Minsk.Compiler.slnf --configuration ${{ env.CONFIGURATION }} --no-build --no-restore --verbosity normal

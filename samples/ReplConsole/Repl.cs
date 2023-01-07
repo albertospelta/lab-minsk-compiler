@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-
-namespace Minsk.Console
+﻿namespace ReplConsole
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+
     internal abstract class Repl
     {
         private readonly List<string> _submissionHistory = new List<string>();

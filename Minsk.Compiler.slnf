@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "Minsk.sln",
+    "projects": [
+      "src\\Minsk\\Minsk.csproj",
+      "tests\\Minsk.Tests\\Minsk.Tests.csproj"
+    ]
+  }
+}

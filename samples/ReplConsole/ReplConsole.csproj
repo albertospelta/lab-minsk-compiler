@@ -1,15 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>
-    <RootNamespace>Minsk.Console</RootNamespace>
-    <AssemblyName>Minsk.Console</AssemblyName>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Minsk\Minsk.csproj" />
+    <ProjectReference Include="..\..\src\Minsk\Minsk.csproj" />
   </ItemGroup>
 
 </Project>
