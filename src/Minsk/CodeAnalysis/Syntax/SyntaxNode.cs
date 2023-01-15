@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace Minsk.CodeAnalysis.Syntax
 {
+    /// <summary>
+    /// Test
+    /// </summary>
     public abstract class SyntaxNode
     {
         public abstract SyntaxKind Kind { get; }
@@ -81,7 +84,7 @@ namespace Minsk.CodeAnalysis.Syntax
 
             if (isToConsole)
                 Console.ForegroundColor = node is SyntaxToken ? ConsoleColor.Blue : ConsoleColor.Cyan;
-            
+
             writer.Write(node.Kind);
 
             if (node is SyntaxToken t && t.Value != null)
