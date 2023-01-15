@@ -30,19 +30,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Initialize CodeQL
+    - name: CodeQL init
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
+        config-file: ./.github/codeql/codeql-config.yml
 
     # - name: Autobuild
     #   uses: github/codeql-action/autobuild@v2
 
     - if: matrix.language == 'csharp'
-      name: Build CSharp
+      name: .NET build
       run: dotnet build Minsk.Compiler.slnf
 
-    - name: Perform CodeQL Analysis
+    - name: CodeQL analyze
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{ matrix.language }}"
