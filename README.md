@@ -1,6 +1,8 @@
 # Minsk [http://minsk-compiler.net]
 
-[![CI](https://github.com/albertospelta/minsk/actions/workflows/ci.yml/badge.svg)](https://github.com/albertospelta/minsk/actions/workflows/ci.yml) [![CodeQL](https://github.com/albertospelta/minsk/actions/workflows/codeql.yml/badge.svg)](https://github.com/albertospelta/minsk/actions/workflows/codeql.yml)
+[![CI](https://github.com/albertospelta/minsk/actions/workflows/ci.yml/badge.svg)](https://github.com/albertospelta/minsk/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/albertospelta/minsk/actions/workflows/codeql.yml/badge.svg)](https://github.com/albertospelta/minsk/actions/workflows/codeql.yml)
+[![Linter](https://github.com/albertospelta/lab-minsk-compiler/actions/workflows/linter.yml/badge.svg)](https://github.com/albertospelta/lab-minsk-compiler/actions/workflows/linter.yml)
 
 > Building a compiler
 
